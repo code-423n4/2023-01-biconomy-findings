@@ -1,4 +1,4 @@
-### No. 1
+### No. 1 Two-step authentication
 Setting the owner should be done through two-step. 
 ```
 function setOwner(address _newOwner) external mixedAuth {
@@ -23,3 +23,24 @@ function acceptOwnership() external {
     pendingOwner = address(0);
 }
 ```
+
+### No. 2 Extra ownership check
+The modifier `onlyOwner()` only accepts the owner as a sender, so the check `_requireFromEntryPointOrOwner` is redundant.
+```
+function execute(address dest, uint value, bytes calldata func) external onlyOwner{
+        _requireFromEntryPointOrOwner();
+        _call(dest, value, func);
+    }
+
+    function executeBatch(address[] calldata dest, bytes[] calldata func) external onlyOwner{
+        _requireFromEntryPointOrOwner();
+        require(dest.length == func.length, "wrong array lengths");
+        for (uint i = 0; i < dest.length;) {
+            _call(dest[i], 0, func[i]);
+            unchecked {
+                ++i;
+            }
+        }
+    }
+```
+https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L460
