@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "taek",
+  "risk": "",
+  "title": "SmartAccount.sol implementation contract can be destructed",
+  "issueId": 41,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/41"
+}
