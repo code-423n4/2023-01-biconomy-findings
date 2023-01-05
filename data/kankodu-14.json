@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "kankodu",
+  "risk": "",
+  "title": "the implementation can be killed bricking all the smart wallets that use it as an implementation",
+  "issueId": 14,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/14"
+}
