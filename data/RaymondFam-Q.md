@@ -49,9 +49,51 @@ For instance, the fallback instance may be refactored as follows just as it has 
 [File: SmartAccount.sol#L550](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L550)
 
 ```diff
++ event Received(uint indexed value, address indexed sender, bytes data);
+
 -    receive() external payable {}
 +    receive() external payable {
 +        emit Received(msg.value, msg.sender, "");
 +    }
 ```
+## Library not adequately utilized
+[`max()` in Math.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L19-L21) should be imported and made used of instead of being re-implemented in the contract.
 
+Here are some of the instances entailed:
+
+[File: SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)
+
+```solidity
+224:        require(gasleft() >= max((_tx.targetTxGas * 64) / 63,_tx.targetTxGas + 2500) + 500, "BSA010");
+
+181:    function max(uint256 a, uint256 b) internal pure returns (uint256) {
+182:        return a >= b ? a : b;
+183:    }
+```
+## Missing Checks for Contract Existence
+Performing a low-level calls without confirming contract’s existence (not yet deployed or have been destructed which could still be a non-zero address) could return success even though no function call was executed as documented in the link below:
+
+https://docs.soliditylang.org/en/v0.8.7/control-structures.html#error-handling-assert-require-revert-and-exceptions
+
+Consider check for target contract existence before call.
+
+Here is an instance entailed that could be refactored by making use of [LibAddress.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/LibAddress.sol) that has already been imported to the contract:
+
+[File: SmartAccount.sol#L449-L453](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L449-L453)
+
+```diff
+    function transfer(address payable dest, uint amount) external nonReentrant onlyOwner {
+        require(dest != address(0), "this action will burn your funds");
++        require(dest.isContract(), "INVALID_IMPLEMENTATION");
+        (bool success,) = dest.call{value:amount}("");
+        require(success,"transfer failed");
+    }
+```
+## Inadequate NatSpec
+Solidity contracts can use a special form of comments, i.e., the Ethereum Natural Language Specification Format (NatSpec) to provide rich documentation for functions, return variables and more. Please visit the following link for further details:
+
+https://docs.soliditylang.org/en/v0.8.16/natspec-format.html
+
+Here is a contract instance with missing NatSpec in its entirety:
+
+[File: ERC777TokensRecipient.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC777TokensRecipient.sol)
