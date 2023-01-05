@@ -27,6 +27,10 @@ Latest Solidity version is 0.8.17. Lots of new features there in latest solidity
 
       2: pragma solidity 0.8.12;
 
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol)
+
+      6:  pragma solidity ^0.8.12;
+
 ##
 
 ### [NC-3]  Shorter the inheritance list
@@ -44,6 +48,34 @@ Latest Solidity version is 0.8.17. Lots of new features there in latest solidity
         FallbackManager,
         Initializable,
         ReentrancyGuardUpgradeable {
+
+##
+
+## [NC-4]  NATSPEC IS MISSING
+
+Description
+NatSpec is missing for the following functions , constructor and modifier
+
+[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)  
+
+         function handlePayment(
+        uint256 gasUsed,
+        uint256 baseGas,
+        uint256 gasPrice,
+        uint256 tokenGasPriceFactor,
+        address gasToken,
+        address payable refundReceiver
+       ) private nonReentrant returns (uint256 payment) {
+
+
+        function handlePaymentRevert(
+        uint256 gasUsed,
+        uint256 baseGas,
+        uint256 gasPrice,
+        uint256 tokenGasPriceFactor,
+        address gasToken,
+        address payable refundReceiver
+    ) external returns (uint256 payment) {
 
 
 
@@ -94,6 +126,16 @@ Latest Solidity version is 0.8.17. Lots of new features there in latest solidity
        15:  import "./interfaces/IERC165.sol";
 
        16:  import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol)
+
+          import "../interfaces/IAccount.sol";
+          import "../interfaces/IPaymaster.sol";
+          import "../interfaces/IAggregatedAccount.sol";
+         import "../interfaces/IEntryPoint.sol";
+         import "../utils/Exec.sol";
+         import "./StakeManager.sol";
+         import "./SenderCreator.sol";
 
 ##
 
@@ -193,6 +235,22 @@ Add require statement to __newOwner address already exiting owner
         emit EOAChanged(address(this), oldOwner, _newOwner);
        }
 
+##
+
+## [L-6]  AVOID HARDCODED VALUES
+
+It is not good practice to hardcode values, but if you are dealing with addresses much less, these can change between implementations, networks or projects, so it is convenient to remove these values from the source code
+
+           [FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)  
+
+             200:   uint256 startGas = gasleft() + 21000 + msg.data.length * 8;
+
+            42:     bytes32 internal constant DOMAIN_SEPARATOR_TYPEHASH = 0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218;
+
+
+           48:    bytes32 internal constant ACCOUNT_TX_TYPEHASH = 0xc2595443c361a1f264c73470b9410fd67ac953ebd1a3ae63a2f514f3f014cf07;
+
+           224 :  require(gasleft() >= max((_tx.targetTxGas * 64) / 63,_tx.targetTxGas + 2500) + 500, "BSA010");
          
 
 
