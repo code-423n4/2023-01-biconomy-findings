@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "kankodu",
-  "risk": "",
+  "risk": "3",
   "title": "Invalid access check when dealing with contracts",
   "issueId": 15,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/15"
