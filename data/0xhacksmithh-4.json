@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "0xhacksmithh",
-  "risk": "",
+  "risk": "Q",
   "title": "QA Report",
   "issueId": 4,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/4"
