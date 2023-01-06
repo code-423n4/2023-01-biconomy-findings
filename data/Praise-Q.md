@@ -1,4 +1,4 @@
-in function deployWallet() in SmartAccountFactory.sol Lc 53, there are no zero-address checks for this parameters. address _owner, address _entryPoint, address _handler., invalid wallet addresses can be inputed and deployed.
+in function deployWallet() in SmartAccountFactory.sol Lc 53, there are no zero-address checks for this parameters. address _owner, address _entryPoint, address _handler, invalid wallet addresses can be inputed and deployed.
 ```
 
  function deployWallet(address _owner, address _entryPoint, address _handler) public returns(address proxy){ 
@@ -10,7 +10,7 @@ in function deployWallet() in SmartAccountFactory.sol Lc 53, there are no zero-a
         BaseSmartAccount(proxy).init(_owner, _entryPoint, _handler);
         isAccountExist[proxy] = true;
     }
-
+```
 Also, 
 iIn BasePayMaster.sol, Lc 67 the public function withdrawTo() has no Zero-address check. funds can be withdrawn to an invalid address.
 
