@@ -454,3 +454,35 @@ remove the circumflex ^
 ```
 pragma solidity 0.8.12;
 ```
+
+## [L-15]
+SWC-107 Reentrancy
+
+
+File
+```
+/libs/MultiSendCallOnly.sol
+```
+
+URL
+```
+https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/libs/MultiSendCallOnly.sol#L47
+```
+
+Write to persistent state following external call.
+```
+The contract account state is accessed after an external call. 
+In the reentrancy attack (a.k.a. recursive call attack), a malicious contract calls back into the calling contract before the first invocation of the function is finished. 
+This may cause the different invocations of the function to interact in undesirable ways.
+```
+
+PoC
+Current code
+```
+success := call(gas(), to, value, data, dataLength, 0, 0)
+```
+
+Remediation
+```
+use reentrancy guard import file.
+```
