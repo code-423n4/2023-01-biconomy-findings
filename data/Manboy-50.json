@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "Manboy",
-  "risk": "",
+  "risk": "3",
   "title": "Anybody can execute arbitrary transactions on any SmartAccount via `execTransaction`",
   "issueId": 50,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/50"
