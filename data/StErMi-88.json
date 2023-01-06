@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "StErMi",
-  "risk": "",
+  "risk": "2",
   "title": "Relayer could not receive any refund when `tokenGasPriceFactor` is very high",
   "issueId": 88,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/88"
