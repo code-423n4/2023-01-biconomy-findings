@@ -24,28 +24,7 @@ function acceptOwnership() external {
 }
 ```
 
-### No. 2 Wrong ownership check
-The modifier `onlyOwner()` only accepts the owner as a sender, so the check `_requireFromEntryPointOrOwner` is useless. Since these functions should be allowed to be called by `entryPoint` as well, the modifier `onlyOwner()` should be removed.
-```
-function execute(address dest, uint value, bytes calldata func) external onlyOwner{
-        _requireFromEntryPointOrOwner();
-        _call(dest, value, func);
-    }
-
-    function executeBatch(address[] calldata dest, bytes[] calldata func) external onlyOwner{
-        _requireFromEntryPointOrOwner();
-        require(dest.length == func.length, "wrong array lengths");
-        for (uint i = 0; i < dest.length;) {
-            _call(dest[i], 0, func[i]);
-            unchecked {
-                ++i;
-            }
-        }
-    }
-```
-https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L460
-
-### No. 3 Grieving by already deployed smart wallet contract
+### No. 2 Grieving by already deployed smart wallet contract
 
 In the normal scenario, Alice sends fund to her smart wallet (which is not created yet) and then after some time sends the dapp transaction to the SDK. The SDK sends batch of transactions (create wallet and dapp transaction) to the relayer. The relayer first creates the wallet by calling the `SmartAccountFactory.sol`, and then sends the dapp transaction to the created wallet. 
 
