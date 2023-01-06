@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "Tointer",
-  "risk": "",
+  "risk": "3",
   "title": "Replay attack (EIP712 signed transaction)",
   "issueId": 36,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/36"
