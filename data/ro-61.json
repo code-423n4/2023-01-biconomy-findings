@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "ro",
-  "risk": "",
+  "risk": "3",
   "title": "Signature Replay",
   "issueId": 61,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/61"
