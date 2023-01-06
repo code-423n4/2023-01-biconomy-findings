@@ -358,3 +358,35 @@ use fixed number
 // e.g. 
 pragma solidity 0.8.12;
 ```
+
+## [L-12]
+SWC-103 Floating Pragma
+
+
+File
+```
+/aa-4337/interfaces/IStakeManager.sol
+```
+
+URL
+```
+https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IStakeManager.sol#L2
+```
+
+A floating pragma is set.
+```
+Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. 
+Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.
+```
+
+PoC
+Current code
+```
+pragma solidity ^0.8.12;
+```
+
+Remediation
+remove the circumflex ^
+```
+pragma solidity 0.8.12;
+```
