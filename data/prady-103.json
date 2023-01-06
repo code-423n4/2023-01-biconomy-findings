@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "prady",
-  "risk": "",
+  "risk": "2",
   "title": "Dust GAS gets included in `requiredTxGas` ",
   "issueId": 103,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/103"
