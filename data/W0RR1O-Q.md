@@ -7,4 +7,13 @@ Because there are no safeguards in place to stop an attacker from sending transa
 
 Mitigation
 -----------
-One way to address this vulnerability would be to provide or set a gas limit for the multiSend() function or to implement a gas check before runnimg every transaction.
+One way to address this vulnerability would be to provide or set a gas limit for the multiSend() function or to implement a gas check before running every transaction.
+
+
+Potential vulnerability in the function fallback()
+===============================
+
+`https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/FallbackManager.sol#L32-L53`
+
+The fallback function does not check the transaction value and will transmit all fallback calls with data, regardless of the value supplied, which is a potential vulnerability in the FallbackManager contract. If an attacker is able to send a fallback call with a big value and abuse the contract, this could lead to a vulnerability.
+
