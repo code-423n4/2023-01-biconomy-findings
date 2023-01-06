@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "dragotanqueray",
-  "risk": "",
+  "risk": "2",
   "title": "ModuleManager Allows Fingerprinting by Attackers",
   "issueId": 96,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/96"
