@@ -27,3 +27,29 @@ In Lc 9, The external function withdrawStake() has no zero- Address check also.
         entryPoint.withdrawStake(withdrawAddress);
 }
 ```
+In Executor.sol, Lc 14,  the internal function execute() has no zero-address check for "address to" parameter  
+
+```
+    function execute(
+        address to,
+        uint256 value,
+        bytes memory data,
+        Enum.Operation operation,
+        uint256 txGas
+    ) internal returns (bool success) {
+        if (operation == Enum.Operation.DelegateCall) {
+            // solhint-disable-next-line no-inline-assembly
+            assembly {
+                success := delegatecall(txGas, to, add(data, 0x20), mload(data), 0, 0)
+            }
+        } else {
+            // solhint-disable-next-line no-inline-assembly
+            assembly {
+                success := call(txGas, to, value, add(data, 0x20), mload(data), 0, 0)
+            }
+        }
+        // Emit events here..
+        if (success) emit ExecutionSuccess(to, value, data, operation, txGas);
+        else emit ExecutionFailure(to, value, data, operation, txGas);
+    }
+```
