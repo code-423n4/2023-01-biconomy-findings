@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "PingT",
-  "risk": "",
+  "risk": "2",
   "title": "depositFor(address paymasterId) Function Address.isContract Authentication Bypass",
   "issueId": 63,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/63"
