@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "smajtara",
-  "risk": "",
+  "risk": "G",
   "title": "Gas Optimizations",
   "issueId": 27,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/27"
