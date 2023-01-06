@@ -24,8 +24,8 @@ function acceptOwnership() external {
 }
 ```
 
-### No. 2 Extra ownership check
-The modifier `onlyOwner()` only accepts the owner as a sender, so the check `_requireFromEntryPointOrOwner` is redundant.
+### No. 2 Wrong ownership check
+The modifier `onlyOwner()` only accepts the owner as a sender, so the check `_requireFromEntryPointOrOwner` is useless. Since these functions should be allowed to be called by `entryPoint` as well, the modifier `onlyOwner()` should be removed.
 ```
 function execute(address dest, uint value, bytes calldata func) external onlyOwner{
         _requireFromEntryPointOrOwner();
