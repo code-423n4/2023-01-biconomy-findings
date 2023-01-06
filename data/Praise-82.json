@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "Praise",
-  "risk": "",
+  "risk": "2",
   "title": "unprotected deploywallet() ",
   "issueId": 82,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/82"
