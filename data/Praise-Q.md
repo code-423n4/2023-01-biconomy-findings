@@ -10,3 +10,20 @@ in function deployWallet() in SmartAccountFactory.sol Lc 53, there are no zero-a
         BaseSmartAccount(proxy).init(_owner, _entryPoint, _handler);
         isAccountExist[proxy] = true;
     }
+
+Also, 
+iIn BasePayMaster.sol, Lc 67 the public function withdrawTo() has no Zero-address check. funds can be withdrawn to an invalid address.
+
+```
+    function withdrawTo(address payable withdrawAddress, uint256 amount) public virtual onlyOwner {
+        entryPoint.withdrawTo(withdrawAddress, amount);
+    }
+```
+
+In Lc 9, The external function withdrawStake() has no zero- Address check also.
+
+```
+    function withdrawStake(address payable withdrawAddress) external onlyOwner {
+        entryPoint.withdrawStake(withdrawAddress);
+}
+```
