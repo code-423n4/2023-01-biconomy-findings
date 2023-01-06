@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "StErMi",
-  "risk": "",
+  "risk": "3",
   "title": "An arbitrary contract can call `execTransaction` even if it's not the owner of the SmartAccount",
   "issueId": 85,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/85"
