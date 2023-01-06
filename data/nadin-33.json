@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "nadin",
-  "risk": "",
+  "risk": "G",
   "title": "Gas Optimizations",
   "issueId": 33,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/33"
