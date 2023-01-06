@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ro",
+  "risk": "",
+  "title": "Singleton (base copy contract) has no protection",
+  "issueId": 60,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/60"
+}
