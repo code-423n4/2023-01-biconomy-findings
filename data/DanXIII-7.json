@@ -1,7 +1,7 @@
 {
   "contest": 200,
   "handle": "DanXIII",
-  "risk": "",
+  "risk": "2",
   "title": "ADMINISTRATOR PRIVILEGE: THE OWNER CAN USE THE TRANSFER",
   "issueId": 7,
   "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/7"
