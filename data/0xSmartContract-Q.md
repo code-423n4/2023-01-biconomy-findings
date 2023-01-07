@@ -13,8 +13,9 @@
 |[L-09]| Missing Event for critical parameters init and change | 1 |
 |[L-10]| Use `2StepSetOwner ` instead of ` setOwner `| 1 |
 |[L-11]| init() function can be called by anybody| 1 |
+|[L-12]| The minimum transaction value of 21,000 gas may change in the future| 1 |
 
-Total 11 issues
+Total 12 issues
 
 
 ### Non-Critical Issues List
@@ -477,6 +478,76 @@ if (msg.sender != DEPLOYER_ADDRESS) {
             revert NotDeployer();
         }
 ```
+
+
+### [L-12] The minimum transaction value of 21,000 gas may change in the future
+
+
+```solidity
+
+contracts/smart-contract-wallet/SmartAccount.sol:
+  192:     function execTransaction(
+  193:         Transaction memory _tx,
+  194:         uint256 batchId,
+  195:         FeeRefund memory refundInfo,
+  196:         bytes memory signatures
+  197:     ) public payable virtual override returns (bool success) {
+  198:         // initial gas = 21k + non_zero_bytes * 16 + zero_bytes * 4
+  199:         //            ~= 21k + calldata.length * [1/3 * 16 + 2/3 * 4]
+  200:         uint256 startGas = gasleft() + 21000 + msg.data.length * 8;
+  201:         //console.log("init %s", 21000 + msg.data.length * 8);
+  202:         bytes32 txHash;
+  203:         // Use scope here to limit variable lifetime and prevent `stack too deep` errors
+  204:         {
+  205:             bytes memory txHashData =
+  206:                 encodeTransactionData(
+  207:                     // Transaction info
+  208:                     _tx,
+  209:                     // Payment info
+  210:                     refundInfo,
+  211:                     // Signature info
+  212:                     nonces[batchId]
+  213:                 );
+  214:             // Increase nonce and execute transaction.
+  215:             // Default space aka batchId is 0
+  216:             nonces[batchId]++;
+  217:             txHash = keccak256(txHashData);
+  218:             checkSignatures(txHash, txHashData, signatures);
+  219:         }
+
+
+```
+
+https://ethereum-magicians.org/t/some-medium-term-dust-cleanup-ideas/6287
+
+Why do txs cost 21000 gas?
+To understand how special-purpose cheap withdrawals could be done, it helps first to understand what goes into the 21000 gas in a tx. The cost of processing a tx includes:
+Two account writes (a balance-editing CALL normally costs 9000 gas)
+A signature verification (compare: the ECDSA precompile costs 3000 gas)
+The transaction data (~100 bytes, so 1600 gas, though originally it cost 6800)
+Some more gas was tacked on to account for transaction-specific overhead, bringing the total to 21000.
+
+
+The minimum transaction value of 21,000 gas may change in the future, so it is recommended to make this value updateable.
+
+
+
+### Recommended Mitigation Steps
+
+Add this code;
+
+```js
+
+uint256 txcost = 21_000;
+
+ function changeTxCost(uint256 _amount) public onlyOwner {
+        txcost = _amount;
+    }
+
+```
+
+
+
 
 ### [N-01] Insufficient coverage
 
