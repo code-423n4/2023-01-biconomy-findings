@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Contract can over-pay or under-pay the gas refund payment if the gas payment ERC20 token is not 18 decimals.",
+  "issueId": 165,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/165"
+}
