@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Wallet deployment is vulnerable to cross-chain frontrunning",
+  "issueId": 143,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/143"
+}
