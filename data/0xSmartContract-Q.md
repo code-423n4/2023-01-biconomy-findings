@@ -528,7 +528,9 @@ The transaction data (~100 bytes, so 1600 gas, though originally it cost 6800)
 Some more gas was tacked on to account for transaction-specific overhead, bringing the total to 21000.
 
 
-The minimum transaction value of 21,000 gas may change in the future, so it is recommended to make this value updateable.
+[protocol_params.go#L31](https://github.com/ethereum/go-ethereum/blob/b8f9b3779fbdc62d5a935b57f1360608fa4600b4/params/protocol_params.go#L31)
+
+The minimum transaction value of 21,000 gas may change in the future, so it is recommended to make this value updatable.
 
 
 
