@@ -21,13 +21,18 @@
 
 ##
 
-## [GAS-2]   Use uint8 Can Increase Gas Cost. Uint256 consume less gas than uint8 in function parameters 
+## [GAS-2]   Use uint8,uint64 Can Increase Gas Cost. Uint256 consume less gas than uint8 in function parameters 
 
 A smart contract's gas consumption can be higher if developers use items that are less than 32 bytes in size because the Ethereum Virtual Machine can only handle 32 bytes at a time. In order to increase the element's size to the necessary size, the EVM has to perform additional operations
 
 [FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)
 
       307 :  uint8 v;
+
+
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol)
+
+      84:  uint64 withdrawTime = uint64(block.timestamp) + info.unstakeDelaySec;
 
 ##
 
@@ -47,6 +52,13 @@ A smart contract's gas consumption can be higher if developers use items that ar
 (https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L55-L135)
 
 (https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L168-L190)
+
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol)
+
+       function getDepositInfo(address account) public view returns (DepositInfo memory info) {
+        return deposits[account];
+    }
+
 
 ##
 
@@ -100,6 +112,11 @@ A smart contract's gas consumption can be higher if developers use items that ar
             }
         }
 
+
+
+
+
+        
 
 
 
