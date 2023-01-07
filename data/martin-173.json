@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "martin",
+  "risk": "2",
+  "title": "[M-01] `stake`: NON-CONFORMING ERC20 TOKENS NOT RECOVERABLE",
+  "issueId": 173,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/173"
+}
