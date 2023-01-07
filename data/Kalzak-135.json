@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Kalzak",
+  "risk": "3",
+  "title": "Deterministic wallet deployments can be frontrun or preemptively deployed and then have ownership stolen",
+  "issueId": 135,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/135"
+}
