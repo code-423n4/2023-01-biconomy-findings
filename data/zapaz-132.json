@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "zapaz",
+  "risk": "2",
+  "title": "Impossibility to sign with EIP-1271 smartcontract",
+  "issueId": 132,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/132"
+}
