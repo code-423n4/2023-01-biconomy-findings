@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Gas refund can be avoided and receiver receives no gas refund payment in ETH even when tx.gasPrice is high",
+  "issueId": 144,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/144"
+}
