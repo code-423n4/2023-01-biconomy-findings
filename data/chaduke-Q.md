@@ -9,3 +9,6 @@ require(maxGasValues <= type(uint128).max, "AA94 gas values overflow");
 QA2: https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/paymasters/BasePaymaster.sol#L75
 The modifier ``onlyOwner`` is not necessary, just like the ``deposit()`` function. 
 
+QA3: https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/paymasters/BasePaymaster.sol#L99
+Zero address check is necessary for ``withdrawAddress`` to avoid losing funding to the zero address.
+
