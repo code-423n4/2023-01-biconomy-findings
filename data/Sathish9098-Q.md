@@ -9,11 +9,25 @@
 
      2:  pragma solidity ^0.8.12;
 
+[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol)
+
+       2: pragma solidity ^0.8.12;
+
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IStakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IStakeManager.sol)
+
+    2:  pragma solidity ^0.8.12;
+
+[FILE :2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol ](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol)
+
+   2:  pragma solidity ^0.8.12;
+
+
+
 ##
 
 ### [NC-2] USE A MORE RECENT VERSION OF SOLIDITY
 
-Latest Solidity version is 0.8.17. Lots of new features there in latest solidity versions 
+Latest Solidity version is 0.8.17
 
 [FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol)
 
@@ -30,6 +44,28 @@ Latest Solidity version is 0.8.17. Lots of new features there in latest solidity
 [FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol)
 
       6:  pragma solidity ^0.8.12;
+
+[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAggregator.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAggregator.sol)
+
+        2:  pragma solidity 0.8.12;
+
+[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol)
+
+       2: pragma solidity ^0.8.12;
+
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IStakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IStakeManager.sol)
+
+    2:  pragma solidity ^0.8.12;
+
+[FILE :2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol ](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol)
+
+   2:  pragma solidity ^0.8.12;
+
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol)
+
+       2:  pragma solidity ^0.8.12;
+
+
 
 ##
 
@@ -76,6 +112,42 @@ NatSpec is missing for the following functions , constructor and modifier
         address gasToken,
         address payable refundReceiver
     ) external returns (uint256 payment) {
+
+## [NC-5]  NO SAME VALUE INPUT CONTROL.  _newEntryPoint not checked its already a entry point or not  . Its possible to set already exist address as new entry point . The new entry point must not same with already existing address . As per current protocol its possible to set already exiting address as a new entry.
+
+[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)  
+
+        function updateEntryPoint(address _newEntryPoint) external mixedAuth {
+        require(_newEntryPoint != address(0), "Smart Account:: new entry point address cannot be zero");
+        emit EntryPointChanged(address(_entryPoint), _newEntryPoint);
+        _entryPoint = IEntryPoint(payable(_newEntryPoint));
+        }
+
+> Recommended Mitigation Steps
+
+ require(_newEntryPoint != _entryPoint , revert ADDRESS_SAME()); . Need to add this in the updateEntryPoint() code.
+
+
+
+##
+
+## [NC-6]  NO SAME VALUE INPUT CONTROL. _newOwner address must be checked with existing owner address . Now Its possible to set already existing owner address as new owner.
+
+[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)  
+
+        function setOwner(address _newOwner) external mixedAuth {
+        require(_newOwner != address(0), "Smart Account:: new Signatory address cannot be zero");
+        address oldOwner = owner;
+        owner = _newOwner;
+        emit EOAChanged(address(this), oldOwner, _newOwner);
+       }
+
+> Recommended Mitigation Steps
+
+require(_newOwner != owner , revert ADDRESS_SAME());
+
+
+##
 
 
 
@@ -137,6 +209,22 @@ NatSpec is missing for the following functions , constructor and modifier
          import "./StakeManager.sol";
          import "./SenderCreator.sol";
 
+[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAggregator.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAggregator.sol)
+
+        4: import "./UserOperation.sol";
+
+[FILE :2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol ](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol)
+
+          import "./UserOperation.sol";
+          import "./IStakeManager.sol";
+          import "./IAggregator.sol";
+
+[FILE : 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol)
+
+       4:  import "../interfaces/IStakeManager.sol";
+
+
+
 ##
 
 ## [L-2]  CRITICAL ADDRESS CHANGES SHOULD USE TWO-STEP PROCEDURE  
@@ -184,60 +272,7 @@ Lack of two-step procedure for critical operations leaves them error-prone. Cons
 The function should call another function, otherwise it should revert
 
 ##
-
-## [L-4]  _newEntryPoint not checked its already a entry point or not  . Its possible to set already exist address as new entry point . The new entry point must not same with already existing address . As per current protocol its possible to set already exiting address as a new entry.
-
-[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)  
-
-        function updateEntryPoint(address _newEntryPoint) external mixedAuth {
-        require(_newEntryPoint != address(0), "Smart Account:: new entry point address cannot be zero");
-        emit EntryPointChanged(address(_entryPoint), _newEntryPoint);
-        _entryPoint = IEntryPoint(payable(_newEntryPoint));
-        }
-
-> Recommended Mitigation Steps
-
- require(_newEntryPoint != _entryPoint , "New entry point address is already a entry point"); . Need to add this in the updateEntryPoint() code.
-
-After Mitigation :
-
-        function updateEntryPoint(address _newEntryPoint) external mixedAuth {
-        require(_newEntryPoint != address(0), "Smart Account:: new entry point address cannot be zero");
-        require(_newEntryPoint != _entryPoint , "Smart Account:: New entry point address is already a entry point");
-        emit EntryPointChanged(address(_entryPoint), _newEntryPoint);
-        _entryPoint = IEntryPoint(payable(_newEntryPoint));
-        }
-
-##
-
-## [L-5]  _newOwner address must be checked with existing owner address . Its possible to set already existing owner address as new owner.
-
-[FILE: 2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)  
-
-        function setOwner(address _newOwner) external mixedAuth {
-        require(_newOwner != address(0), "Smart Account:: new Signatory address cannot be zero");
-        address oldOwner = owner;
-        owner = _newOwner;
-        emit EOAChanged(address(this), oldOwner, _newOwner);
-       }
-
-> Recommended Mitigation Steps
-
-require(_newOwner != owner , "New owner address already owner");
-
-Add require statement to __newOwner address already exiting owner
-
-        function setOwner(address _newOwner) external mixedAuth {
-        require(_newOwner != address(0), "Smart Account:: new Signatory address cannot be zero");
-        require(_newOwner != owner , "New owner address already owner");
-        address oldOwner = owner;
-        owner = _newOwner;
-        emit EOAChanged(address(this), oldOwner, _newOwner);
-       }
-
-##
-
-## [L-6]  AVOID HARDCODED VALUES
+## [L-4]  AVOID HARDCODED VALUES 
 
 It is not good practice to hardcode values, but if you are dealing with addresses much less, these can change between implementations, networks or projects, so it is convenient to remove these values from the source code
 
