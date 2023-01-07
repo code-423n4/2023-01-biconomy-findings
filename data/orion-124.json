@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "orion",
+  "risk": "3",
+  "title": "EntryPoint contract can drain the contracts that inherits baseSmartAccount via replay attacks",
+  "issueId": 124,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/124"
+}
