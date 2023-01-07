@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "romand",
+  "risk": "3",
+  "title": "`checkSignatures` doesn't verify signer for contract signatures",
+  "issueId": 163,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/163"
+}
