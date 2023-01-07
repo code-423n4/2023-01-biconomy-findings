@@ -12,3 +12,6 @@ The modifier ``onlyOwner`` is not necessary, just like the ``deposit()`` functio
 QA3: https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/paymasters/BasePaymaster.sol#L99
 Zero address check is necessary for ``withdrawAddress`` to avoid losing funding to the zero address.
 
+QA4: https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/common/Singleton.sol#L2
+Lock all contracts to the most recent version of Solidity, 0.8.17.
+
