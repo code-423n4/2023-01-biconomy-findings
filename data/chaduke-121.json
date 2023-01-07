@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "chaduke",
+  "risk": "2",
+  "title": "validateUserOp() fails to verify that ``userOpHash`` is indeed the hash of ``userOp``. ",
+  "issueId": 121,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/121"
+}
