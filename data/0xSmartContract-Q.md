@@ -43,8 +43,10 @@ Total 12 issues
 | [N-20] |Implement some type of version counter that will be incremented automatically for contract upgrades| 1 |
 | [N-21] |Tokens accidentally sent to the contract cannot be recovered| 1 |
 | [N-22] |Use a single file for all system-wide constants| 10 |
+| [N-23] |Assembly Codes Specific – Should Have Comments | 72 |
 
-Total 22 issues
+
+Total 23 issues
 
 ### Suggestions
 | Number | Suggestion Details |
@@ -1181,6 +1183,138 @@ contracts/smart-contract-wallet/base/ModuleManager.sol:
 
 contracts/smart-contract-wallet/common/Singleton.sol:
   10:     bytes32 internal constant _IMPLEMENTATION_SLOT = 0x37722d148fb373b961a84120b6c8d209709b45377878a466db32bbc40d95af26;
+
+```
+
+
+### [N-23] Assembly Codes Specific – Should Have Comments
+
+Since this is a low level language that is more difficult to parse by readers, include extensive documentation, comments on the rationale behind its use, clearly explaining what each assembly instruction does
+
+
+This will make it easier for users to trust the code, for reviewers to validate the code, and for developers to build on or update the code.
+
+Note that using Aseembly removes several important security features of Solidity, which can make the code more insecure and more error-prone.
+
+
+```solidity
+72 results - 22 files
+
+contracts/smart-contract-wallet/BaseSmartAccount.sol:
+  5: /* solhint-disable no-inline-assembly */
+
+contracts/smart-contract-wallet/Proxy.sol:
+  17:          assembly {
+  24:         // solhint-disable-next-line no-inline-assembly
+  25:         assembly {
+
+contracts/smart-contract-wallet/SmartAccount.sol:
+  142:         // solhint-disable-next-line no-inline-assembly
+  143:         assembly {
+  329:                 // solhint-disable-next-line no-inline-assembly
+  330:                 assembly {
+  337:                 // solhint-disable-next-line no-inline-assembly
+  338:                 assembly {
+  480:             assembly {
+
+contracts/smart-contract-wallet/SmartAccountFactory.sol:
+  36:         // solhint-disable-next-line no-inline-assembly
+  37:         assembly {
+  55:         // solhint-disable-next-line no-inline-assembly
+  56:         assembly {
+
+contracts/smart-contract-wallet/SmartAccountNoAuth.sol:
+  142:         // solhint-disable-next-line no-inline-assembly
+  143:         assembly {
+  324:                 // solhint-disable-next-line no-inline-assembly
+  325:                 assembly {
+  332:                 // solhint-disable-next-line no-inline-assembly
+  333:                 assembly {
+  470:             assembly {
+
+contracts/smart-contract-wallet/aa-4337/core/BaseAccount.sol:
+  5: /* solhint-disable no-inline-assembly */
+
+contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol:
+    9: /* solhint-disable no-inline-assembly */
+  501:         assembly {offset := data}
+  505:         assembly {data := offset}
+  512:         assembly {mstore(0, number())}
+
+contracts/smart-contract-wallet/aa-4337/core/SenderCreator.sol:
+  19:         /* solhint-disable no-inline-assembly */
+  20:         assembly {
+
+contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol:
+  9: /* solhint-disable no-inline-assembly */
+
+contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol:
+   4: /* solhint-disable no-inline-assembly */
+  39:         assembly {data := calldataload(userOp)}
+  63:         assembly {
+
+contracts/smart-contract-wallet/aa-4337/utils/Exec.sol:
+   4: // solhint-disable no-inline-assembly
+  14:         assembly {
+  24:         assembly {
+  34:         assembly {
+  41:         assembly {
+  52:         assembly {
+
+contracts/smart-contract-wallet/base/Executor.sol:
+  21:             // solhint-disable-next-line no-inline-assembly
+  22:             assembly {
+  26:             // solhint-disable-next-line no-inline-assembly
+  27:             assembly {
+
+contracts/smart-contract-wallet/base/FallbackManager.sol:
+  16:         // solhint-disable-next-line no-inline-assembly
+  17:         assembly {
+  34:         // solhint-disable-next-line no-inline-assembly
+  35:         assembly {
+
+contracts/smart-contract-wallet/base/ModuleManager.sol:
+   87:         // solhint-disable-next-line no-inline-assembly
+   88:         assembly {
+  128:         // solhint-disable-next-line no-inline-assembly
+  129:         assembly {
+
+contracts/smart-contract-wallet/common/SecuredTokenTransfer.sol:
+  18:         // solhint-disable-next-line no-inline-assembly
+  19:         assembly {
+
+contracts/smart-contract-wallet/common/SignatureDecoder.sol:
+  22:         // solhint-disable-next-line no-inline-assembly
+  23:         assembly {
+
+contracts/smart-contract-wallet/common/Singleton.sol:
+  14:         // solhint-disable-next-line no-inline-assembly
+  15:         assembly {
+  21:         // solhint-disable-next-line no-inline-assembly
+  22:         assembly {
+
+contracts/smart-contract-wallet/libs/LibAddress.sol:
+  13:     // solhint-disable-next-line no-inline-assembly
+  14:     assembly { csize := extcodesize(account) }
+
+contracts/smart-contract-wallet/libs/Math.sol:
+   66:             assembly {
+   86:             assembly {
+  100:             assembly {
+
+contracts/smart-contract-wallet/libs/MultiSend.sol:
+  28:         // solhint-disable-next-line no-inline-assembly
+  29:         assembly {
+
+contracts/smart-contract-wallet/libs/MultiSendCallOnly.sol:
+  22:         // solhint-disable-next-line no-inline-assembly
+  23:         assembly {
+
+contracts/smart-contract-wallet/libs/Strings.sol:
+  23:             /// @solidity memory-safe-assembly
+  24:             assembly {
+  29:                 /// @solidity memory-safe-assembly
+  30:                 assembly {
 
 ```
 
