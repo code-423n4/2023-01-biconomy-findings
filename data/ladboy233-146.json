@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Gas refund payment can be truncated when the gas refund in ERC20 token",
+  "issueId": 146,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/146"
+}
