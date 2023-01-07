@@ -482,6 +482,8 @@ if (msg.sender != DEPLOYER_ADDRESS) {
 
 ### [L-12] The minimum transaction value of 21,000 gas may change in the future
 
+Any transaction has a 'base fee' of 21,000 gas in order to cover the cost of an elliptic curve operation that recovers the sender address from the signature, as well as the disk space of storing the transaction, according to the Ethereum White Paper
+
 
 ```solidity
 
