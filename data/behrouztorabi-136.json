@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "behrouztorabi",
+  "risk": "2",
+  "title": "Bytecode check for create2 return value is better than address(0)",
+  "issueId": 136,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/136"
+}
