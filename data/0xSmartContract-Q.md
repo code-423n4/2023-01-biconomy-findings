@@ -46,6 +46,13 @@ Total 12 issues
 
 Total 22 issues
 
+### Suggestions
+| Number | Suggestion Details |
+|:--:|:-------|
+| [S-01] |Project Upgrade and Stop Scenario should be |
+| [S-02] |Use descriptive names for Contracts and Libraries |
+
+Total2 suggestions
 
 ### [L-01] Prevent division by 0
 
@@ -1184,3 +1191,15 @@ This can also be called an " EMERGENCY STOP (CIRCUIT BREAKER) PATTERN ".
 
 https://github.com/maxwoe/solidity_patterns/blob/master/security/EmergencyStop.sol
 
+### [S-02] Use descriptive names for Contracts and Libraries
+
+
+This codebase will be difficult to navigate, as there are no descriptive naming conventions that specify which files should contain meaningful logic.
+
+Prefixes should be added like this by filing:
+
+Interface I_
+absctract contracts Abs_
+Libraries Lib_
+
+We recommend that you implement this or a similar agreement.
