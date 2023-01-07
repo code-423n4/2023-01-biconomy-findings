@@ -1,4 +1,4 @@
-### Total 7 issues
+### Total L issues
 
 | Number | Issues Details                                                                     | Context |
 |--------|------------------------------------------------------------------------------------|---------|
@@ -10,7 +10,7 @@
 | [L-06] | Require messages are too short and unclear                                         |  5      |
 | [L-07] | Unused `receive()` Function Will Lock Ether In Contract                            |  2      |
 
-### Total 7 issues
+### Total NC issues
 
 | Number  | Issues Details                                                                     | Context |
 |---------|------------------------------------------------------------------------------------|---------|
@@ -64,7 +64,7 @@ Add a `deployer` address and require that only him can call the `initialize()` f
 
 ## [L-5] Avoid using `tx.origin`
 
-tx.origin is a global variable in Solidity that returns the address of the account that sent the transaction.
+`tx.origin` is a global variable in Solidity that returns the address of the account that sent the transaction.
 
 Using the variable could make a contract vulnerable if an authorized account calls a malicious contract. You can impersonate a user using a third party contract.
 
@@ -144,7 +144,7 @@ Usually lines in source code are limited to 80 characters. Today's screens are m
 
 ## [NC-5] Use `bytes.concat()`
 
-Solidity version 0.8.4 introduces `bytes.concat()` vs `abi.encodePacked(<bytes>,<bytes>)`
+Solidity version 0.8.4 introduces [`bytes.concat()`](https://docs.soliditylang.org/en/v0.8.17/types.html?highlight=bytes.concat#the-functions-bytes-concat-and-string-concat) vs `abi.encodePacked(<bytes>,<bytes>)`
 
 ### Lines of code
 
