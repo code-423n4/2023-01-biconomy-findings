@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "luxartvinsec",
+  "risk": "2",
+  "title": "Out of bounds access vulnerability in `signatureSplit` function",
+  "issueId": 126,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/126"
+}
