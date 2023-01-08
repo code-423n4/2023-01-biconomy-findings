@@ -2,25 +2,25 @@
 
 | Number | Issues Details                                                                     | Context |
 |--------|------------------------------------------------------------------------------------|---------|
-| [L-01] | Low level calls with solidity version 0.8.14 and lower can result in optimiser bug |         |
-| [L-02] | Critical changes should use-two step procedure                                     |  1      |
-| [L-03] | Lack of event emit                                                                 |  2      |
-| [L-04] | `initialize()` function can be called by anyone                                    |  2      |
-| [L-05] | Avoid using `tx.origin`                                                            |  4      |
-| [L-06] | Require messages are too short and unclear                                         |  5      |
-| [L-07] | Unused `receive()` Function Will Lock Ether In Contract                            |  2      |
+| [L-1]  | Low level calls with solidity version 0.8.14 and lower can result in optimiser bug |         |
+| [L-2]  | Critical changes should use-two step procedure                                     |  1      |
+| [L-3]  | `initialize()` function can be called by anyone                                    |  2      |
+| [L-4]  | Avoid using `tx.origin`                                                            |  4      |
 
 ### Total NC issues
 
-| Number  | Issues Details                                                                     | Context |
-|---------|------------------------------------------------------------------------------------|---------|
-| [NC-01] | Open TODO                                                                          |  1      |
-| [NC-02] | Include return parameters in NatSpec comments                                      |         |
-| [NC-03] | Non-usage of specific imports                                                      |         |
-| [NC-04] | Lines are too long                                                                 |  14     |
-| [NC-05] | Use `bytes.concat()`                                                               |  10     |
-| [NC-06] | Use require instead of assert                                                      |  2      |
-| [NC-07] | Typos                                                                              |  1      |
+| Number  | Issues Details                                          | Context |
+|---------|---------------------------------------------------------|---------|
+| [NC-1] | Open TODO                                                |  1      |
+| [NC-2] | Include return parameters in NatSpec comments            |         |
+| [NC-3] | Non-usage of specific imports                            |         |
+| [NC-4] | Lines are too long                                       |  14     |
+| [NC-5] | Use `bytes.concat()`                                     |  10     |
+| [NC-6] | Use require instead of assert                            |  2      |
+| [NC-7] | Typos                                                    |  1      |
+| [NC-8] | Lack of event emit                                       |  2      |
+| [NC-9] | Require messages are too short and unclear               |  5      |
+| [NC-10]| Unused `receive()` Function Will Lock Ether In Contract  |  2      |
 
 
 ## [L-1] Low level calls with solidity version 0.8.14 and lower can result in optimiser bug
@@ -35,21 +35,18 @@ Consider upgrading to solidity 0.8.17
 
 ## [L-2] Critical changes should use-two step procedure
 
+The following contract have a function that allows them an owner to change it to a different address. If the owner accidentally uses an invalid address for which they do not have the private key, then the system will gets locked.
+
 ### Lines of code
 - [SmartAccount.sol:109](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L109-L114)
 
 ### Recommended Mitigation Steps 
 
-Lack of two-step procedure for critical operations leaves them error-prone. Consider adding two step procedure on the critical functions.
+Consider adding two step procedure on the critical functions where the first is announcing a pending new owner and the new address should then claim its ownership.
 
-## [L-3] Lack of event emit
+A similar issue was reported in a previous contest and was assigned a severity of medium: code-423n4/2021-06-realitycards-findings#105
 
-The below methods do not emit an event when the state changes, something that it's very important for dApps and users.
-
-- [BasePaymaster.sol:24](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/BasePaymaster.sol#L24-L26)
-- [VerifyingSingletonPaymaster.sol:65](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L65-L68)
-
-## [L-4] `initialize()` function can be called by anyone
+## [L-3] `initialize()` function can be called by anyone
 
 `initialize()` function can be called anyone when the contract is not initialized
 
@@ -62,7 +59,7 @@ The below methods do not emit an event when the state changes, something that it
 
 Add a `deployer` address and require that only him can call the `initialize()` function.
 
-## [L-5] Avoid using `tx.origin`
+## [L-4] Avoid using `tx.origin`
 
 `tx.origin` is a global variable in Solidity that returns the address of the account that sent the transaction.
 
@@ -74,28 +71,6 @@ Using the variable could make a contract vulnerable if an authorized account cal
 - [SmartAccount.sol:281](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L281)
 - [SmartAccount.sol:511](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L511)
 - [SimpleAccount.sol:113](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/samples/SimpleAccount.sol#L113)
-
-## [L-6] Require messages are too short and unclear
-
-The correct and clear error description explains to the user why the function reverts, but the error descriptions below in the project are not self-explanatory. These error descriptions are very important in the debug features of DApps like Tenderly. Error definitions should be added to the require block, not exceeding 32 bytes.
-
-- [SmartAccount.sol:371](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L371)
-- [SmartAccount.sol:528](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L528)
-- [BasePaymaster.sol:105](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/BasePaymaster.sol#L105)
-- [SimpleAccount.sol:139](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/samples/SimpleAccount.sol#L139)
-- [Math.sol:78](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L78)
-
-## [L-7] Unused `receive()` Function Will Lock Ether In Contract
-
-If the intention is for the Ether to be used, the function should call another function, otherwise it should revert.
-
-### Lines of code
-
-- [SmartAccount.sol:550](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L550)
-- [SimpleAccount.sol:41](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/samples/SimpleAccount.sol#L41)
-
-### Recommended Mitigation Steps
-The function should call another function, otherwise it should revert.
 
 ## [NC-1] Open TODO 
 
@@ -187,3 +162,40 @@ Use `require()` instead of `assert()`
 ## [NC-7] Typos
 
 - [SmartAccount.sol:74](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L74)
+
+#### Fix: 
+
+```solidity
+    /**
+     * @notice Throws if the sender is not the owner.
+     */
+```
+
+## [NC-8] Lack of event emit
+
+The below methods do not emit an event when the state changes, something that it's very important for dApps and users.
+
+- [BasePaymaster.sol:24](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/BasePaymaster.sol#L24-L26)
+- [VerifyingSingletonPaymaster.sol:65](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L65-L68)
+
+## [NC-9] Require messages are too short and unclear
+
+The correct and clear error description explains to the user why the function reverts, but the error descriptions below in the project are not self-explanatory. These error descriptions are very important in the debug features of DApps like Tenderly. Error definitions should be added to the require block, not exceeding 32 bytes.
+
+- [SmartAccount.sol:371](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L371)
+- [SmartAccount.sol:528](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L528)
+- [BasePaymaster.sol:105](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/BasePaymaster.sol#L105)
+- [SimpleAccount.sol:139](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/samples/SimpleAccount.sol#L139)
+- [Math.sol:78](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L78)
+
+## [NC-10] Unused `receive()` Function Will Lock Ether In Contract
+
+If the intention is for the Ether to be used, the function should call another function, otherwise it should revert.
+
+### Lines of code
+
+- [SmartAccount.sol:550](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L550)
+- [SimpleAccount.sol:41](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/samples/SimpleAccount.sol#L41)
+
+### Recommended Mitigation Steps
+The function should call another function, otherwise it should revert.
