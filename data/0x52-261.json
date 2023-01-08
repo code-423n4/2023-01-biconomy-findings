@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0x52",
+  "risk": "2",
+  "title": "SmartAccount.sol is intended to be upgradable but inherits from contracts that contain storage and no gaps",
+  "issueId": 261,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/261"
+}
