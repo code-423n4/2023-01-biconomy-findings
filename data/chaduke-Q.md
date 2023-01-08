@@ -15,3 +15,15 @@ Zero address check is necessary for ``withdrawAddress`` to avoid losing funding 
 QA4: https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/common/Singleton.sol#L2
 Lock all contracts to the most recent version of Solidity, 0.8.17.
 
+QA5. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/handler/DefaultCallbackHandler.sol#L55-L61
+The function should also indicate that it supports the interface of ``ERC777TokensRecipient`` as well.
+
+```
+function supportsInterface(bytes4 interfaceId) external view virtual override returns (bool) {
+        return
+            interfaceId == type(ERC1155TokenReceiver).interfaceId ||
+            interfaceId == type(ERC721TokenReceiver).interfaceId ||
+            interfaceId == type(ERC777TokensRecipient).interfaceId || 
+            interfaceId == type(IERC165).interfaceId;
+    }
+```
