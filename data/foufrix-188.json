@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "foufrix",
+  "risk": "2",
+  "title": "Div by 0 possible on an external function",
+  "issueId": 188,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/188"
+}
