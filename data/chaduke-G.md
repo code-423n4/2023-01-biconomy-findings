@@ -48,3 +48,10 @@ function getHash(UserOperation calldata userOp)
 G5. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L99
 There is no need for this line since ``requiredPreFund`` is used in the body of the function.
 
+G10. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L473
+Adding unchecked to save gas since overflow is not possible due to previous check.
+```
+unchecked{
+     uint256 refund = opInfo.prefund - actualGasCost;
+}
+```
