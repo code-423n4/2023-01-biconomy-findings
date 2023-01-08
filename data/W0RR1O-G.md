@@ -69,3 +69,20 @@ Affaected Code:
 
 Total gas saved = 15x7 = 35
 
+
+Use `calldata` instead of  `memory`
+======================
+Some functions/methods that are declared as `external` and the arguments are defined as `memory` cost more gas instead of `calldata`.
+To save a significant amount it is better to use `calldata` in the arguments of an `external` function:
+
+Recomended changes:
+```
+Remove: function innerHandleOp(bytes calldata callData, UserOpInfo memory opInfo, bytes calldata context) external returns (uint256 actualGasCost)
+Change To : function innerHandleOp(bytes calldata callData, UserOpInfo calldata opInfo, bytes calldata context) external returns (uint256 actualGasCost)
+
+Remove: function getSenderAddress(bytes memory initCode) external;
+Change To:function getSenderAddress(bytes calldata initCode) external;
+```
+Affected code:
+* https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L168
+*https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol#L156
