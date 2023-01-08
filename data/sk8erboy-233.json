@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "sk8erboy",
+  "risk": "3",
+  "title": "Wallets cannot use flashloans without exposing making themselves vulnerable to complete takeover",
+  "issueId": 233,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/233"
+}
