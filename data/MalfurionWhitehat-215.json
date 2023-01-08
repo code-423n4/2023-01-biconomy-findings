@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "MalfurionWhitehat",
+  "risk": "2",
+  "title": "`VerifyingSingletonPaymaster.depositFor` requirement that `paymasterId` cannot be a contract can be circumvented",
+  "issueId": 215,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/215"
+}
