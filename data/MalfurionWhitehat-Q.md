@@ -138,3 +138,7 @@ index 7716a01..15ff91e 100644
      paymasterIdBalances[extractedPaymasterId] -= actualGasCost;
 
 ```
+
+# 6. Remove unused/outdated code comments, unused variables, TODOs, commented out tests, and improve project documentation.
+
+Currently, the project seems to be in active development and not in a final stage. Many places have unused/outdated code comments, unused variables, TODOs, and removed tests. This prevents developers and auditors from finding nuanced vulnerabilities, as more time is spent with minor issues. It is advised to polish the work-in-progress before deploying it to mainnet.
