@@ -45,6 +45,36 @@ For instance, the code block below may be refactored as follows:
 +        _2dNonce = nonces[batchId];
     }
 ```
+## Check logic that could lead to waste of gas
+In ModuleManager.sol, `getModulesPaginated()` has `currentModule != address(0x0)` included in the `while` statement. If `start` was inputted as a non-existent key, `(currentModule == address(0x0)`. This would skip the `while` loop and move on to executing the rest of the code lines while irrelevantly and meaninglessly returning the output.
+
+Consider separating the zero address check by having the function refactored as follows:
+
+[File: ModuleManager.sol#L114-L132](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/ModuleManager.sol#L114-L132)
+
+```diff
+    function getModulesPaginated(address start, uint256 pageSize) external view returns (address[] memory array, address next) {
+        // Init array with max page size
+        array = new address[](pageSize);
+
+        // Populate return array
+        uint256 moduleCount = 0;
+        address currentModule = modules[start];
++        require (currentModule != address(0x0), "BSA105"); // change to a different revert message where deemed fit
+-        while (currentModule != address(0x0) && currentModule != SENTINEL_MODULES && moduleCount < pageSize) {
++        while (currentModule != SENTINEL_MODULES && moduleCount < pageSize) {
+            array[moduleCount] = currentModule;
+            currentModule = modules[currentModule];
+            moduleCount++;
+        }
+        next = currentModule;
+        // Set correct size of returned array
+        // solhint-disable-next-line no-inline-assembly
+        assembly {
+            mstore(array, moduleCount)
+        }
+    }
+```
 ## Payable access control functions costs less gas
 Consider marking functions with access control as `payable`. This will save 20 gas on each call by their respective permissible callers for not needing to have the compiler check for `msg.value`.
 
@@ -55,6 +85,25 @@ For instance, the code line below may be refactored as follows:
 ```diff
 -    function transfer(address payable dest, uint amount) external nonReentrant onlyOwner {
 +    function transfer(address payable dest, uint amount) external payable nonReentrant onlyOwner {
+```
+## Redundant checks
+`init()` in SmartAccount.sol has `_handler != address(0)` unnecessarily included twice in its function logic. Consider removing the second identical check to save gas both on contract deployment and function calls:
+
+[File: SmartAccount.sol#L166-L176](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L166-L176)
+
+```diff
+    function init(address _owner, address _entryPointAddress, address _handler) public override initializer { 
+        require(owner == address(0), "Already initialized");
+        require(address(_entryPoint) == address(0), "Already initialized");
+        require(_owner != address(0),"Invalid owner");
+        require(_entryPointAddress != address(0), "Invalid Entrypoint");
+        require(_handler != address(0), "Invalid Entrypoint");
+        owner = _owner;
+        _entryPoint =  IEntryPoint(payable(_entryPointAddress));
+-        if (_handler != address(0)) internalSetFallbackHandler(_handler);
++        internalSetFallbackHandler(_handler);
+        setupModules(address(0), bytes(""));
+    }
 ```
 ## Non-strict inequalities are cheaper than strict ones
 In the EVM, there is no opcode for non-strict inequalities (>=, <=) and two operations are performed (> + = or < + =).
