@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "cccz",
+  "risk": "2",
+  "title": "VerifyingSingletonPaymaster.validatePaymasterUserOp does not work when sigLength == 64",
+  "issueId": 194,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/194"
+}
