@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "zaskoh",
+  "risk": "2",
+  "title": "Wrong EIP-4337 implementation for validateUserOp and validatePaymasterUserOp in SmartAccount + VerifyingSingletonPaymaster will lead to broken Wallets for users",
+  "issueId": 231,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/231"
+}
