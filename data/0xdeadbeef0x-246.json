@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xdeadbeef0x",
+  "risk": "2",
+  "title": "Transaction can fail due to batchId collision",
+  "issueId": 246,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/246"
+}
