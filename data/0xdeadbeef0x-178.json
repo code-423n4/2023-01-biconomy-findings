@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xdeadbeef0x",
+  "risk": "2",
+  "title": "`receive` function in the implementation is never called",
+  "issueId": 178,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/178"
+}
