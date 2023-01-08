@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xkato",
+  "risk": "2",
+  "title": "If the owner becomes malicious or gets compromised could steal funds from the contract or execute malicious code ",
+  "issueId": 228,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/228"
+}
