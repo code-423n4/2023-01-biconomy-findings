@@ -29,5 +29,41 @@ Affected code:
 
 * https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/Singleton.sol#L13
 
+Avoid using compound assignment operator in state variables
+========================================
+Using compound assignment operators such as `state +=x` or `state -=x` is more expensive then using operator assignment `state= state + x` or `state = state - x`.
 
+* Proof Of Concept(without optimization)
+```
+pragma solidity ^0.8.12;
+
+//Not optimized contract
+contract TestA{
+    uint private num;
+    function testA() public{
+        num += 1;
+    }
+}
+
+//Optimized contract
+contract TestB{
+    uint private num;
+    function testB() public{
+        num = num + 1;
+    }
+}
+```
+Gas saving executing:15 per entry
+```
+contract TestA = 50027gas
+contract TestB =  50012gas
+```
+Affaected Code:
+* https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L148
+* https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L210-L237
+*https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L263-L286
+*https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L81
+*https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L101
+*https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L135
+*https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L468
 
