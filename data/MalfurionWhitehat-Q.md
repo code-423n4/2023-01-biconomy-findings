@@ -70,3 +70,51 @@ index 7716a01..6534bda 100644
  
 
 ```
+
+# 4. Enforce consistent error messages throughout the code
+
+Because this project is heavily influenced by the `eth-infinitism/account-abstraction`'s sample code, additional error messages included by the Biconomy project are inconsistent with existing ones. It is recommended to refactor them in order to keep the codebase consistent:
+
+```diff
+diff --git a/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol b/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
+index 7716a01..fb5e334 100644
+--- a/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
++++ b/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
+@@ -39,22 +39,22 @@ contract VerifyingSingletonPaymaster is BasePaymaster {
+     }
+ 
+     function deposit() public virtual override payable {
+-        revert("Deposit must be for a paymasterId. Use depositFor");
++        revert("VerifyingPaymaster: deposit must be for a paymasterId. Use depositFor");
+     }
+ 
+     /**
+      * add a deposit for this paymaster and given paymasterId (Dapp Depositor address), used for paying for transaction fees
+      */
+     function depositFor(address paymasterId) public payable {
+-        require(!Address.isContract(paymasterId), "Paymaster Id can not be smart contract address");
+-        require(paymasterId != address(0), "Paymaster Id can not be zero address");
++        require(!Address.isContract(paymasterId), "VerifyingPaymaster: paymaster Id can not be smart contract address");
++        require(paymasterId != address(0), "VerifyingPaymaster: paymaster Id can not be zero address");
+         paymasterIdBalances[paymasterId] += msg.value;
+         entryPoint.depositTo{value : msg.value}(address(this));
+     }
+ 
+     function withdrawTo(address payable withdrawAddress, uint256 amount) public override {
+         uint256 currentBalance = paymasterIdBalances[msg.sender];
+-        require(amount <= currentBalance, "Insufficient amount to withdraw");
++        require(amount <= currentBalance, "VerifyingPaymaster: insufficient amount to withdraw");
+         paymasterIdBalances[msg.sender] -= amount;
+         entryPoint.withdrawTo(withdrawAddress, amount);
+     }
+@@ -106,7 +106,7 @@ contract VerifyingSingletonPaymaster is BasePaymaster {
+         // we only "require" it here so that the revert reason on invalid signature will be of "VerifyingPaymaster", and not "ECDSA"
+         require(sigLength == 64 || sigLength == 65, "VerifyingPaymaster: invalid signature length in paymasterAndData");
+         require(verifyingSigner == hash.toEthSignedMessageHash().recover(paymasterData.signature), "VerifyingPaymaster: wrong signature");
+-        require(requiredPreFund <= paymasterIdBalances[paymasterData.paymasterId], "Insufficient balance for paymaster id");
++        require(requiredPreFund <= paymasterIdBalances[paymasterData.paymasterId], "VerifyingPaymaster: insufficient balance for paymaster id");
+         return (userOp.paymasterContext(paymasterData), 0);
+     }
+ 
+
+```
