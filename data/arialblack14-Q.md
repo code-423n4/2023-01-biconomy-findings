@@ -68,22 +68,21 @@ Use the selector instead of the raw value.
 |2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/common/Singleton.sol#L10|[bytes32 internal constant _IMPLEMENTATION_SLOT = 0x37722d148fb373b961a84120b6c8d209709b45377878a466db32bbc40d95af26;](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/Singleton.sol#L10 )|
 ---
 
-## [N-1] Consider adding checks for signature malleability.
+## [L-5] Open TODOs
 
 ### Description
-Consider adding checks for signature malleability
+Code architecture, incentives, and error handling/reporting questions/issues should be resolved before deployment
 
 ### ✅ Recommendation
-Use OpenZeppelin's ECDSA contract rather than calling ecrecover() directly
+Implement TODO and remove.
 
 ### 🔍 Findings:
 | | |
 |---|---|
-|2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L347|[_signer = ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", dataHash)), v - 4, r, s);](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L347 )|
-|2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L350|[_signer = ecrecover(dataHash, v, r, s);](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L350 )|
+|2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L255|[// TODO: copy logic of gasPrice?](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L255 )|
 ---
 
-## [N-2] Missing timelock for critical changes.
+## [N-1] Missing timelock for critical changes.
 
 ### Description
 A timelock should be added to functions that perform critical changes.
@@ -102,7 +101,7 @@ TODO: Add Timelock for the following functions.
 |2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L65|[function setSigner( address _newVerifyingSigner) external onlyOwner{](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L65 )|
 ---
 
-## [N-3] Use scientific notation (e.g.`1e18`) rather than large multiples of 10 (e.g. 1000000)
+## [N-2] Use scientific notation (e.g.`1e18`) rather than large multiples of 10 (e.g. 1000000)
 
 ### Description
 Use scientific notation (e.g.`1e18`) rather than large multiples of 10, that could lead to errors.
@@ -116,7 +115,7 @@ Use scientific notation instead of large multiples of 10.
 |2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/common/SecuredTokenTransfer.sol#L22|[let success := call(sub(gas(), 10000), token, 0, add(data, 0x20), mload(data), 0, 0x20)](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/SecuredTokenTransfer.sol#L22 )|
 ---
 
-## [N-4] Use scientific notation (e.g.`1e18`) rather than exponentiation (e.g.`10**18`).
+## [N-3] Use scientific notation (e.g.`1e18`) rather than exponentiation (e.g.`10**18`).
 
 ### Description
 Use scientific notation (e.g.`1e18`) rather than exponentiation (e.g.`10**18`) that could lead to errors.
@@ -143,21 +142,9 @@ Use scientific notation instead of exponentiation.
 |2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L299|[return result + (rounding == Rounding.Up && 10**result < value ? 1 : 0);](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L299 )|
 ---
 
-## [L-5] Open TODOs
 
-### Description
-Code architecture, incentives, and error handling/reporting questions/issues should be resolved before deployment
 
-### ✅ Recommendation
-Implement TODO and remove.
-
-### 🔍 Findings:
-| | |
-|---|---|
-|2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L255|[// TODO: copy logic of gasPrice?](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L255 )|
----
-
-## [N-6] Lines are too long.
+## [N-4] Lines are too long.
 
 ### Description
 Usually lines in source code are limited to 80 characters. Today's screens are much larger so it's reasonable to stretch this in some cases. Since the files will most likely reside in GitHub, and GitHub starts using a scroll bar in all cases when the length is over 164 characters, the lines below should be split when they reach that length
@@ -182,7 +169,7 @@ Reduce number of characters per line to improve readability.
 |2023-01-biconomy/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC1155TokenReceiver.sol#L32|[This function MUST return `bytes4(keccak256("onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)"))` (i.e. 0xbc197c81) if it accepts the transfer(s).](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC1155TokenReceiver.sol#L32 )|
 ---
 
-## [N-7] For modern and more readable code, update import usages.
+## [N-5] For modern and more readable code, update import usages.
 
 ### Description
 Solidity code is cleaner in the following way: On the principle that clearer code is better code, you should import the things you want to use. Specific imports with curly braces allow us to apply this rule better. Check out this [article](https://betterprogramming.pub/solidity-tutorial-all-about-imports-c65110e41f3a)
