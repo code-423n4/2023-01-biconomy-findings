@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xWagmi",
+  "risk": "2",
+  "title": " The return value of an external transferFrom call is not checked",
+  "issueId": 181,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/181"
+}
