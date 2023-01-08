@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Atarpara",
+  "risk": "2",
+  "title": "Doesn’t Revert on failed contract creation",
+  "issueId": 187,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/187"
+}
