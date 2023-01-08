@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "cccz",
+  "risk": "2",
+  "title": "VerifyingSingletonPaymaster.validatePaymasterUserOp should ignore signature mismatch of from==ZERO_ADDRESS",
+  "issueId": 196,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/196"
+}
