@@ -43,3 +43,30 @@ index c4f69a8..78e960b 100644
      }
  
 ``` 
+
+# 3. Emit events on important state variable changing operations: `VerifyingSingletonPaymaster.setSigner`
+
+```diff
+diff --git a/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol b/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
+index 7716a01..6534bda 100644
+--- a/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
++++ b/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
+@@ -28,6 +28,8 @@ contract VerifyingSingletonPaymaster is BasePaymaster {
+     using PaymasterHelpers for bytes;
+     using PaymasterHelpers for PaymasterData;
+ 
++    event VerifyingSignerChanged(address indexed oldVerifyingSigner, address indexed newVerifyingSigner);
++
+     mapping(address => uint256) public paymasterIdBalances;
+ 
+     address public verifyingSigner;
+@@ -64,6 +66,7 @@ contract VerifyingSingletonPaymaster is BasePaymaster {
+     */
+     function setSigner( address _newVerifyingSigner) external onlyOwner{
+         require(_newVerifyingSigner != address(0), "VerifyingPaymaster: new signer can not be zero address");
++        emit VerifyingSignerChanged(verifyingSigner, _newVerifyingSigner);
+         verifyingSigner = _newVerifyingSigner;
+     }
+ 
+
+```
