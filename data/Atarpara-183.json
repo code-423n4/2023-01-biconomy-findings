@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Atarpara",
+  "risk": "2",
+  "title": "Safe Token Transfer doesn't validate token address is contract or not",
+  "issueId": 183,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/183"
+}
