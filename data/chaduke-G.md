@@ -72,3 +72,11 @@ Adding unchecked to save gas since overflow is not possible due to previous chec
 senderInfo.deposit = uint112(deposit - requiredPrefund);
 
 ```
+
+G9. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L362
+Adding unchecked to save gas since overflow is not possible due to previous check.
+```
+
+ paymasterInfo.deposit = uint112(deposit - requiredPreFund);
+
+```
