@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "zaskoh",
+  "risk": "2",
+  "title": "Wrong implementation of simulateValidation(UserOperation calldata userOp)",
+  "issueId": 198,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/198"
+}
