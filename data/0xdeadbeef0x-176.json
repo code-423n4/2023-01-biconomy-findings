@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xdeadbeef0x",
+  "risk": "3",
+  "title": "Theft of user funds and DOS because EntryPoint and handler are not used in create2 salt calculation.",
+  "issueId": 176,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/176"
+}
