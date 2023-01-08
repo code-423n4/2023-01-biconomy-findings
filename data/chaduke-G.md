@@ -44,3 +44,7 @@ function getHash(UserOperation calldata userOp)
     }
 
 ```
+
+G5. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L99
+There is no need for this line since ``requiredPreFund`` is used in the body of the function.
+
