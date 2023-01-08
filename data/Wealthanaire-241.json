@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Wealthanaire",
+  "risk": "3",
+  "title": "Functions that send Ether to arbitrary destinations",
+  "issueId": 241,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/241"
+}
