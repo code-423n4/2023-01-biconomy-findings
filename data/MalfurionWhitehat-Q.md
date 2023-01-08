@@ -118,3 +118,23 @@ index 7716a01..fb5e334 100644
  
 
 ```
+
+# 5. Remove misleading comments
+
+Because this project is heavily influenced by the `eth-infinitism/account-abstraction`'s sample code, some comments are left out even after code changes by the Biconomy project. As a result, they are misleading with regard to the implementation. It is recommended to refactor them in order to keep the codebase easy to understand:
+
+```diff
+diff --git a/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol b/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
+index 7716a01..15ff91e 100644
+--- a/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
++++ b/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol
+@@ -122,7 +122,6 @@ contract VerifyingSingletonPaymaster is BasePaymaster {
+     uint256 actualGasCost
+   ) internal virtual override {
+     (mode);
+-    // (mode,context,actualGasCost); // unused params
+     PaymasterContext memory data = context.decodePaymasterContext();
+     address extractedPaymasterId = data.paymasterId;
+     paymasterIdBalances[extractedPaymasterId] -= actualGasCost;
+
+```
