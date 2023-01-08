@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "MalfurionWhitehat",
+  "risk": "2",
+  "title": "`VerifyingSingletonPaymaster.setSigner` will invalidate previously approved messages, which will impact the paymaster reputation score",
+  "issueId": 223,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/223"
+}
