@@ -97,3 +97,84 @@ https://docs.soliditylang.org/en/v0.8.16/natspec-format.html
 Here is a contract instance with missing NatSpec in its entirety:
 
 [File: ERC777TokensRecipient.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC777TokensRecipient.sol)
+
+## Commented codes
+Throughout the code base, there are several commented code lines that could point to items that are not done or need redesigning, be a mistake, or just be testing overhead. Consider removing them before deployment for readability and conciseness.
+
+Here are some of the instances entailed:
+
+[File: SmartAccount.sol#L68-L69](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L68-L69)
+
+```solidity
+    // nice to have
+    // event SmartAccountInitialized(IEntryPoint indexed entryPoint, address indexed owner);
+```
+[File: SmartAccountFactory.sol#L22](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountFactory.sol#L22)
+
+```solidity
+    // event SmartAccountCreated(address indexed _proxy, address indexed _implementation, address indexed _owner);
+```
+## Use `delete` to clear variables
+`delete a` assigns the initial value for the type to `a`. i.e. for integers it is equivalent to `a = 0`, but it can also be used on arrays, where it assigns a dynamic array of length zero or a static array of the same length with all elements reset. For structs, it assigns a struct with all members reset. Similarly, it can also be used to set an address to zero address or a boolean to false. It has no effect on whole mappings though (as the keys of mappings may be arbitrary and are generally unknown). However, individual keys and what they map to can be deleted: If `a` is a mapping, then `delete a[x]` will delete the value stored at x.
+
+The delete key better conveys the intention and is also more idiomatic.
+
+For instance, the `a[x]` instance below may be refactored as follows:
+  
+[File: ModuleManager.sol#L52](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/ModuleManager.sol#L52)
+
+```diff
+-        modules[module] = address(0);
++        delete modules[module];
+```
+## Use of `uint` Instead of `uint256`
+Across the code base, there are numerous instances of `uint`, as opposed to `uint256`. In favor of explicitness, consider replacing all instances of `uint` with `uint256`.
+
+Here are some of the instances entailed:
+
+[File: SmartAccountFactory.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountFactory.sol)
+
+```
+35:        bytes memory deploymentData = abi.encodePacked(type(Proxy).creationCode, uint(uint160(_defaultImpl)));
+
+54:        bytes memory deploymentData = abi.encodePacked(type(Proxy).creationCode, uint(uint160(_defaultImpl)));
+
+69:       bytes memory code = abi.encodePacked(type(Proxy).creationCode, uint(uint160(_defaultImpl)));
+```
+## Inconsistency in interface naming
+Some interfaces in the code bases are named without the prefix `I` that could cause confusion to developers and readers referencing or interacting with the protocol. Consider conforming to Solidity's naming conventions by having the instances below refactored as follow:
+
+[File: ERC1155TokenReceiver.sol#L7](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC1155TokenReceiver.sol#L7)
+
+```diff
+- interface ERC1155TokenReceiver {
++ interface IERC1155TokenReceiver {
+```
+[File: ERC721TokenReceiver.sol#L5](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC721TokenReceiver.sol#L5)
+
+```diff
+- interface ERC721TokenReceiver {
+- interface IERC721TokenReceiver {
+```
+[File: ERC777TokensRecipient.sol#L4](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC777TokensRecipient.sol#L4)
+
+```diff
+- interface ERC777TokensRecipient {
++ interface IERC777TokensRecipient {
+```
+## Non-compliant contract layout with Solidity's Style Guide
+According to Solidity's Style Guide below:
+
+https://docs.soliditylang.org/en/v0.8.17/style-guide.html
+
+In order to help readers identify which functions they can call, and find the constructor and fallback definitions more easily, functions should be grouped according to their visibility and ordered in the following manner:
+
+constructor, receive function (if exists), fallback function (if exists), external, public, internal, private
+
+And, within a grouping, place the `view` and `pure` functions last.
+
+Additionally, inside each contract, library or interface, use the following order:
+
+type declarations, state variables, events, modifiers, functions
+
+Consider adhering to the above guidelines for all contract instances entailed.
