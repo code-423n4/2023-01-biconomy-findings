@@ -27,3 +27,5 @@ function supportsInterface(bytes4 interfaceId) external view virtual override re
             interfaceId == type(IERC165).interfaceId;
     }
 ```
+QA6. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol#L115
+Zero address check for ``withdrawAddress`` is necessary to avoid losing funding. 
