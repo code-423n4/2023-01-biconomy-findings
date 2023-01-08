@@ -36,3 +36,15 @@ QA7. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee552
 ```
 (address paymasterId, bytes memory signature) = abi.decode(paymasterAndData, (address, bytes));
 ```
+
+QA8. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/libs/MultiSendCallOnly.sol#L21
+There is a for loop which contains a low-level call, we need to avoid the msg.value reuse vulnerability problem, see 
+the following for more details:
+https://blog.trailofbits.com/2021/12/16/detecting-miso-and-opyns-msg-value-reuse-vulnerability-with-slither/
+The fix is that we need to make sure this function has no modifier payable.
+```
+ function multiSend(bytes memory transactions) public{
+}
+
+```
+
