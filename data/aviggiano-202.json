@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "aviggiano",
+  "risk": "3",
+  "title": "`SmartAccountFactory.deployCounterFactualWallet` can be frontrun, funds can be stolen and a backdoor can be introduced on `SmartAccount `",
+  "issueId": 202,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/202"
+}
