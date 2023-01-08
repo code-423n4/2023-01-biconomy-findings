@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "MalfurionWhitehat",
+  "risk": "3",
+  "title": "`VerifyingSingletonPaymaster` can be DoS-ed due to singleton architecture",
+  "issueId": 214,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/214"
+}
