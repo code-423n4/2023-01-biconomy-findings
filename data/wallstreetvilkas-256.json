@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "wallstreetvilkas",
+  "risk": "3",
+  "title": "The attacker can execute transactions on another user's account by faking the signature.",
+  "issueId": 256,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/256"
+}
