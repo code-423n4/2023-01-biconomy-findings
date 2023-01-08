@@ -55,3 +55,13 @@ unchecked{
      uint256 refund = opInfo.prefund - actualGasCost;
 }
 ```
+
+G11. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L484-L494
+The implementation can be simplified because ``min(maxFeePerGas, maxPriorityFeePerGas + block.basefee)`` is always the correct answer even when ``maxFeePerGas == maxPriorityFeePerGas``.
+```
+function getUserOpGasPrice(MemoryUserOp memory mUserOp) internal view returns (uint256) {
+    unchecked {
+        return min(mUserOp.maxFeePerGas, mUserOp.maxPriorityFeePerGas + block.basefee);
+    }
+    
+```
