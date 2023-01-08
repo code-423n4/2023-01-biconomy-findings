@@ -48,7 +48,7 @@ function getHash(UserOperation calldata userOp)
 G5. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L99
 There is no need for this line since ``requiredPreFund`` is used in the body of the function.
 
-G10. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L473
+G6. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L473
 Adding unchecked to save gas since overflow is not possible due to previous check.
 ```
 unchecked{
@@ -56,7 +56,7 @@ unchecked{
 }
 ```
 
-G11. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L484-L494
+G7. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L484-L494
 The implementation can be simplified because ``min(maxFeePerGas, maxPriorityFeePerGas + block.basefee)`` is always the correct answer even when ``maxFeePerGas == maxPriorityFeePerGas``.
 ```
 function getUserOpGasPrice(MemoryUserOp memory mUserOp) internal view returns (uint256) {
@@ -64,4 +64,11 @@ function getUserOpGasPrice(MemoryUserOp memory mUserOp) internal view returns (u
         return min(mUserOp.maxFeePerGas, mUserOp.maxPriorityFeePerGas + block.basefee);
     }
     
+```
+
+G8. https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L336
+Adding unchecked to save gas since overflow is not possible due to previous check.
+```
+senderInfo.deposit = uint112(deposit - requiredPrefund);
+
 ```
