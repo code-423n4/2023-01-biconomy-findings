@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "prc",
+  "risk": "2",
+  "title": "Possible Reentrancy attack if ERC777 tokens are used",
+  "issueId": 314,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/314"
+}
