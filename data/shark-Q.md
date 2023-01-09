@@ -130,3 +130,39 @@ File: `MultiSendCallOnly.sol` [Line 17](https://github.com/code-423n4/2023-01-bi
        /// @audit "for most part" -> "for the most part"
 17:    /// @notice The code is for most part the same as the normal MultiSend (to keep compatibility),
 ```
+
+## 9. Missing events for crucial functions
+
+Consider adding events for crucial functions. If no events are added, off-chain tools will not work as expected.
+
+For instance, an event could be added for the following function to then emit:
+
+File: `VerifyingSingletonPaymaster.sol` [Line 65-68](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L65-L68)
+
+## 10. Avoid using `this` without wrapping in `address()`
+
+> Prior to version 0.5.0, Solidity allowed address members to be accessed by a contract instance, for example `this.balance`. This is now forbidden and an explicit conversion to address must be done: `address(this).balance`.
+
+Source: https://docs.soliditylang.org/en/v0.5.0/units-and-global-variables.html
+
+For example:
+
+File: `SmartAccount.sol` [Line 136](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L136)
+
+```solidity
+        return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), this));
+```
+
+As seen above, `this` is not explicitly converted to address. Consider refactoring to:
+
+```solidity
+        return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), address(this)));
+```
+
+## 11. Commented out code
+
+Commented out code adds confusion and distracts readers from the actual code. Consider at least removing commented out code before deploying.
+
+- File: `SmartAccount.sol` [Line 235](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L235)
+- File: `SmartAccount.sol` [Line 237-238](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L237-L238)
+- File: `SmartAccount.sol` [Line 242-243](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L242-L243)
