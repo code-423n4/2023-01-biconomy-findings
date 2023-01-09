@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Tricko",
+  "risk": "2",
+  "title": "checkSignatures will revert for all possible contract signatures",
+  "issueId": 419,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/419"
+}
