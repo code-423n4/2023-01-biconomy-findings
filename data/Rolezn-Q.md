@@ -13,8 +13,9 @@
 | [LOW&#x2011;8](#LOW&#x2011;8) | Remove unused code | 5 |
 | [LOW&#x2011;9](#LOW&#x2011;9) | `require()` should be used instead of `assert()` | 1 |
 | [LOW&#x2011;10](#LOW&#x2011;10) | Unused `receive()` Function Will Lock Ether In Contract  | 1 |
+| [LOW&#x2011;11](#LOW&#x2011;11) | Missing Non Reentrancy Modifiers | 6
 
-Total: 39 contexts over 10 issues
+Total: 45 contexts over 11 issues
 
 ### Non-critical Issues
 | |Issue|Contexts|
@@ -552,6 +553,65 @@ https://github.com/code-423n4/2023-01-biconomy/tree/main/scw-contracts/contracts
 
 The function should call another function, otherwise it should revert
 
+
+### <a href="#Summary">[LOW&#x2011;11]</a><a name="LOW&#x2011;11"> Missing Non Reentrancy Modifiers
+
+The following functions are missing reentrancy modifier although some other public/external functions does use reentrancy modifer. Even though I did not find a way to exploit it, it seems like those functions should have the nonReentrant modifier as the other functions have it as well.
+
+#### <ins>Proof Of Concept</ins>
+
+
+```solidity
+function execTransaction(
+        Transaction memory _tx,
+        uint256 batchId,
+        FeeRefund memory refundInfo,
+        bytes memory signatures
+    ) public payable virtual override returns (bool success) {
+```
+
+https://github.com/code-423n4/2023-01-biconomy/tree/main/scw-contracts/contracts\smart-contract-wallet\SmartAccount.sol#L192
+
+```solidity
+function handlePaymentRevert(
+        uint256 gasUsed,
+        uint256 baseGas,
+        uint256 gasPrice,
+        uint256 tokenGasPriceFactor,
+        address gasToken,
+        address payable refundReceiver
+    ) external returns (uint256 payment) {
+```
+
+https://github.com/code-423n4/2023-01-biconomy/tree/main/scw-contracts/contracts\smart-contract-wallet\SmartAccount.sol#L271
+
+```solidity
+function requiredTxGas(
+        address to,
+        uint256 value,
+        bytes calldata data,
+        Enum.Operation operation
+    ) external returns (uint256) {
+```
+
+https://github.com/code-423n4/2023-01-biconomy/tree/main/scw-contracts/contracts\smart-contract-wallet\SmartAccount.sol#L363
+
+```solidity
+function addDeposit() public payable {
+```
+
+https://github.com/code-423n4/2023-01-biconomy/tree/main/scw-contracts/contracts\smart-contract-wallet\SmartAccount.sol#L525
+
+```solidity
+function withdrawDepositTo(address payable withdrawAddress, uint256 amount) public onlyOwner {
+```
+
+https://github.com/code-423n4/2023-01-biconomy/tree/main/scw-contracts/contracts\smart-contract-wallet\SmartAccount.sol#L536
+
+
+
+#### <ins>Recommended Mitigation Steps</ins>
+Add reentrancy modifiers
 
 
 ## Non Critical Issues
