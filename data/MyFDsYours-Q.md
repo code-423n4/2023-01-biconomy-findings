@@ -4,6 +4,7 @@
 	[NC-01] RETURNDATASIZE opcode is called 3 times 
 	[NC-02] Repeated function getNonce() and nonce()
 	[NC-03] Missing docstrings
+	[NC-04] Unnamed return parameters
 
 
 # [L-01] Lack of two steps procedure for new ownership
@@ -77,3 +78,16 @@ Also present in ModuleManager [L93](https://github.com/code-423n4/2023-01-bicono
 
 
 When writing docstrings, consider following the [Ethereum Natural Specification Format](https://docs.soliditylang.org/en/develop/natspec-format.html) (NatSpec).
+
+
+# [NC-04] Unnamed return parameters
+
+	Consider adding and using named return parameters to improve explicitness and readability.
+
+
+In SmartAccount.sol [L140](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L140)
+
+## Recommandation 
+
+
+![Capture d’écran du 2023-01-09 19-58-41](https://user-images.githubusercontent.com/121401405/211386590-0b3ed6d6-ec11-447d-9f59-0ab4226b9f30.png)
