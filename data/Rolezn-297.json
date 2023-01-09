@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Rolezn",
+  "risk": "2",
+  "title": "Admin privilege - A single point of failure can allow a hacked or malicious owner use critical functions in the project",
+  "issueId": 297,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/297"
+}
