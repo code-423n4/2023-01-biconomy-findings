@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "jadezti",
+  "risk": "2",
+  "title": "One-step ownership change is vulnerable",
+  "issueId": 497,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/497"
+}
