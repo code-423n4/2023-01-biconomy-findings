@@ -351,7 +351,7 @@ File: contracts/smart-contract-wallet/base/ModuleManager.sol
 
 --------
 
-## G-08 Multiplication or division by 2 shoudl use bit shifting
+## G-08 Multiplication or division by 2 should use bit shifting
 
 `<x> * 2` is equivalent to `<x> << 1` and `<x> / 2` is the same as `<x> >> 1`. The `MUL` and `DIV` opcodes cost 5 gas, whereas `SHL` and `SHR` only cost 3 gas.
 
