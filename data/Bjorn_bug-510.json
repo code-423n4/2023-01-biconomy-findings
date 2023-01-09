@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Bjorn_bug",
+  "risk": "3",
+  "title": "The isContract function in LibAddress that uses EXTCODESIZE can be vulnerable to the \"Contract Creation Code Execution\" attack",
+  "issueId": 510,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/510"
+}
