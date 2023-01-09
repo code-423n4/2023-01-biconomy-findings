@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "immeas",
+  "risk": "2",
+  "title": "`validateUserOp` in `SmartAccount` and `BaseSmartAccount` doesn't follow EIP-4337",
+  "issueId": 386,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/386"
+}
