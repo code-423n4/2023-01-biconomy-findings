@@ -64,3 +64,69 @@ Consider adding the following require statement before line 451. This will make 
 ```solidity
 require(dest.isContract(), "Invalid contract");
 ```
+
+## 7. Spaced comment
+
+Adding a space before a comment can make text easier to read, thus increasing readability.
+
+- File: `BaseSmartAccount.sol` [Line 22](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L22)
+- File: `BaseSmartAccount.sol` [Line 110](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L110)
+- File: `EntryPoint.sol` [Line 144](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L144)
+- File: `EntryPoint.sol` [Line 250](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L250)
+
+## 8. Typo mistakes
+
+It is recommended to use the proper spelling of words. Typos can make it difficult for readers to decipher the intended meaning, which can lead to confusion.
+
+File: `SmartAccount.sol` ([Line 38](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L38), [Line 74](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L74), [Line 153](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L153), [Line 223](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L223), [Line 320](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L320))
+
+```
+       /// @audit Seperators -> Separators
+38:    // Domain Seperators
+
+       /// @audit Remove "an"                vv
+74:    * @notice Throws if the sender is not an the owner.
+
+        /// @audit transaction -> transactions
+153:    * @return nonce : the number of transaction made within said batch
+
+        /// @audit send -> sent                              vvvv
+223:    // We also include the 1/64 in the check that is not send along with a call to counteract potential shortings because of EIP-150
+
+        /// @ audit send -> sent                                                                                   vvvv
+320:    // This check is not completely accurate, since it is possible that more signatures than the threshold are send.
+```
+
+File: `BaseSmartAccount.sol` [Line 110](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L110)
+
+```
+            /// @audit its -> (it's || it is)
+110:        //ignore failure (its EntryPoint's job to verify, not account.)
+```
+
+File: `EntryPoint.sol` ([Line 43](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L43), [Line 222](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L222), [Line 277](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L277))
+
+```
+        /// @audit Remove redundancy: "into into"
+43:     * @param opIndex into into the opInfo array
+
+         /// @audit revert -> reverts
+222:     * @dev this method always revert. Successful result is SimulationResult error. other errors are failures.
+
+         /// @audit revert, -> reverts (remove the comma)
+277:     * this method always revert, and returns the address in SenderAddressResult error
+```
+
+File: `ModuleManager.sol` [Line 103](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/ModuleManager.sol#L103)
+
+```
+    /// @audit an -> a
+    /// @dev Returns if an module is enabled
+```
+
+File: `MultiSendCallOnly.sol` [Line 17](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/MultiSendCallOnly.sol#L17)
+
+```
+       /// @audit "for most part" -> "for the most part"
+17:    /// @notice The code is for most part the same as the normal MultiSend (to keep compatibility),
+```
