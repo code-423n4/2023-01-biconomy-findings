@@ -1,8 +1,13 @@
-# 1.Use Two-Step Transfer Pattern for Access Controls
+# 1.Critical Address Changes Should Use Two-step Procedure
 
  ## Description：
 Contracts implementing access control's, e.g. owner, implementation ，EntryPoint should consider implementing a Two-Step Transfer pattern.
 Otherwise it's possible that the role mistakenly transfers ownership or updates implementation  or updates EntryPoint  to the wrong address, resulting in a loss of the role.
+
+6 results - 2 files
+
+SmartAccount.sol
+SmartAccountNoAuth.sol
 
 function setOwner(address _newOwner) external mixedAuth {
         require(_newOwner != address(0), "Smart Account:: new Signatory address cannot be zero");
@@ -49,6 +54,10 @@ function acceptOwnership() external {
 
 
 # 2.No same value input control
+6 results - 2 files
+
+SmartAccount.sol
+SmartAccountNoAuth.sol
 
 function setOwner(address _newOwner) external mixedAuth {
         require(_newOwner != address(0), "Smart Account:: new Signatory address cannot be zero");
