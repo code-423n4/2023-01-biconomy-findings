@@ -89,3 +89,7 @@ Consider adding a non-zero validation for this function.
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L49
 
 The contract should follow the best-practices and implement `using Address for address` to make the code cleaner and more readable.
+
+16. [GLOBAL] Missing `_disableInitializer`
+
+Currently, all implementation contracts lack the aforementioned function. It might make sense to call this function within the constructor to avoid an initialization of the implementation contract.
