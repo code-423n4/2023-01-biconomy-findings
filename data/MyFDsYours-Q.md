@@ -22,7 +22,7 @@
 	
 
 
-# [NC-01] RETURNDATASIZE opcode is called 3 times 
+# [NC-01] RETURNDATASIZE opcode is called 3 times [L25](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/Proxy.sol#L25)
 
 	In Proxy.sol in the fallback function, RETURNDATASIZE opcode is called 3 times. 
 
@@ -59,7 +59,7 @@ Also present in ModuleManager [L93](https://github.com/code-423n4/2023-01-bicono
 
 ### Recommandation 
 
-	Remove the nouce() and keep getNounce() that is more explecit 
+	Remove the nouce() function and keep getNounce() function that is more explecit and documented 
 
 # [NC-03] Missing docstrings
 
