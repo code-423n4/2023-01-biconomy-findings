@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "adriro",
+  "risk": "3",
+  "title": "Attacker can gain control of counterfactual wallet",
+  "issueId": 460,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/460"
+}
