@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "gogo",
+  "risk": "3",
+  "title": "Attacker can take control over each SmartAccount proxy and steal all users' funds",
+  "issueId": 477,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/477"
+}
