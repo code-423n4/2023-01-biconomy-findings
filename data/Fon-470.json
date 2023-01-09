@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Fon",
+  "risk": "3",
+  "title": "when the 'v' value from a signature is 0, checkSignatures function can be tricked",
+  "issueId": 470,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/470"
+}
