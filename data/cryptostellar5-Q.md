@@ -125,24 +125,12 @@ Recommendation Code Style:
 ```
 
 
-### 08 ECRECOVER NOT CHECKED FOR ZERO RESULT
-
-*Number of Instances Identified: 2*
-
-https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol
-
-```
-347: _signer = ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", dataHash)), v - 4, r, s);
-350: _signer = ecrecover(dataHash, v, r, s);
-```
-
-
-### 09 USE LATEST SOLIDITY VERSION
+### 08 USE LATEST SOLIDITY VERSION
 
 When deploying contracts, you should use the latest released version of Solidity. Apart from exceptional cases, only the latest version receives [security fixes](https://github.com/ethereum/solidity/security/policy#supported-versions). Furthermore, breaking changes as well as new features are introduced regularly.
 Latest Version is 0.8.17
 
-### 10 TYPOS
+### 09 TYPOS
 
 *Number of Instances Identified: 1*
 
@@ -154,7 +142,7 @@ It should be validate instead of valiate
 10: the validateUserOp MUST valiate the aggregator parameter, and MAY ignore the userOp.signature field.
 ```
 
-### 11 OPEN TODOS
+### 10 OPEN TODOS
 
 *Number of Instances Identified: 1*
 
