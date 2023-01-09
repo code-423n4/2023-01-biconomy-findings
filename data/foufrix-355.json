@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "foufrix",
+  "risk": "2",
+  "title": "No checked on the size & gas consumption of ops in handleOps()",
+  "issueId": 355,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/355"
+}
