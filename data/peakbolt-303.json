@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "peakbolt",
+  "risk": "3",
+  "title": "DoS of user operations and loss of user transaction fee due to insufficient gas value submission by malicious bundler",
+  "issueId": 303,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/303"
+}
