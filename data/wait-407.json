@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "wait",
+  "risk": "3",
+  "title": "A malicious user can make other's smart wallet invoke any external contract by deploying the smart wallet",
+  "issueId": 407,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/407"
+}
