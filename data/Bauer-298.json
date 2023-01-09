@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Bauer",
+  "risk": "2",
+  "title": "The Proxy contract is designed to receive ETH but not implement function for withdrawal",
+  "issueId": 298,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/298"
+}
