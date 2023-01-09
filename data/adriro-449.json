@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "adriro",
+  "risk": "3",
+  "title": "SmartAccount authorization can be bypassed using a contract signature",
+  "issueId": 449,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/449"
+}
