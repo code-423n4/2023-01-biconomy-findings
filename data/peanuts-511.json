@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "handleAggregatedOps() does not handle non-atomic transactions which results in whole function revert if one transaction does not go through",
+  "issueId": 511,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/511"
+}
