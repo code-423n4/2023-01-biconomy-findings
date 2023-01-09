@@ -137,3 +137,18 @@ File: `SmartAccount.sol` [Line 322](https://github.com/code-423n4/2023-01-bicono
 ```solidity
                 require(uint256(s) >= 65, "BSA021");
 ```
+
+## 8. Using `storage` instead of `memory` for structs/arrays saves gas
+
+When retrieving data from a `storage` location, assigning the data to a `memory` variable will cause all fields of the struct/array to be read from storage, which incurs a Gcoldsload (2100 gas) for each field of the struct/array. If the fields are read from the new `memory` variable, they incur an additional MLOAD rather than a cheap stack read. Instead of declaring the variable with the memory keyword, declaring the variable with the `storage` keyword and caching any fields that need to be re-read in stack variables, will be much cheaper, only incurring the Gcoldsload for the fields actually read. The only time it makes sense to read the whole struct/array into a `memory` variable, is if the full struct/array is being returned by the function, is being passed to a function that requires `memory`, or if the array/struct is being read from another `memory` array/struct
+
+File: `EntryPoint.sol` ([Line 179](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L179), [Line 229](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L229), [Line 234](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L234), [Line 235](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L235))
+
+```solidity
+171:        MemoryUserOp memory mUserOp = opInfo.mUserOp;
+
+229:        UserOpInfo memory outOpInfo;
+
+234:        StakeInfo memory paymasterInfo = getStakeInfo(outOpInfo.mUserOp.paymaster);
+235:        StakeInfo memory senderInfo = getStakeInfo(outOpInfo.mUserOp.sender);
+```
