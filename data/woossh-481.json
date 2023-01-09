@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "woossh",
+  "risk": "2",
+  "title": "Ability to bypass the despositFor() function's check and to use it with a smart contract",
+  "issueId": 481,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/481"
+}
