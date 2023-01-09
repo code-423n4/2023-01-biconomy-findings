@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0x52",
+  "risk": "2",
+  "title": "SmartContract.sol has no way to invalidate nonces which poses security risks",
+  "issueId": 263,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/263"
+}
