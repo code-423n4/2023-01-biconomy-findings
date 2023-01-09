@@ -14,8 +14,9 @@ For instance, the import instances below could be refactored as follows:
 + import {Executor} from "./Executor.sol";
 ```
 ## Expression for Hashed Values
-Long bytes of literal values assigned to constants may incur typo/human error. In fact, it was validated in the constructor of Proxy.sol using `assert()` to compare the hashed constant with its `bytes32()` result to avoid this error:
+Long bytes of literal values assigned to constants may incur typo/human error. In fact, it was validated in the constructor of Proxy.sol and Singleton.sol using `assert()` to compare the hashed constant with its `bytes32()` result to avoid this error:
 
+[File: Singleton.sol#L13](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/Singleton.sol#L13)
 [File: Proxy.sol#L16](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/Proxy.sol#L16)   
 
 ```solidity
@@ -285,6 +286,18 @@ pragma solidity 0.8.12;
 -    /// @param targetTxGas Fas that should be used for the safe transaction.
 +    /// @param targetTxGas Gas that should be used for the safe transaction.
 ```
+[File: SignatureDecoder.sol#L4](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/SignatureDecoder.sol#L4)
+
+```diff
+- /// @title SignatureDecoder - Decodes signatures that a encoded as bytes
++ /// @title SignatureDecoder - Decodes signatures that are encoded as bytes
+```
+[File: IERC1271Wallet.sol#L12](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/IERC1271Wallet.sol#L12)
+
+```diff
+-   * @param _data       Arbitrary length data signed on the behalf of address(this)
++   * @param _data       Arbitrary length data signed on behalf of address(this)
+```
 ## `address(this)` over `this`
 As denoted in [Solidity Documentation](https://docs.soliditylang.org/en/v0.5.0/units-and-global-variables.html):
 
@@ -297,4 +310,17 @@ Here is an instance entailed:
 ```diff
 -        return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), this));
 +        return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), address(this)));
+```
+## Lack of events for critical operations
+Critical operations not triggering events will make it difficult to review the correct behavior of the deployed contracts. Users and blockchain monitoring systems will not be able to detect suspicious behaviors at ease without events. Consider adding events where appropriate for all critical operations for better support of off-chain logging API.
+
+Here is an instance entailed:
+
+[File: VerifyingSingletonPaymaster.sol#L65-L68](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L65-L68)
+
+```solidity
+    function setSigner( address _newVerifyingSigner) external onlyOwner{
+        require(_newVerifyingSigner != address(0), "VerifyingPaymaster: new signer can not be zero address");
+        verifyingSigner = _newVerifyingSigner;
+    }
 ```
