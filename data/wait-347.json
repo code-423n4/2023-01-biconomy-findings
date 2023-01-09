@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "wait",
+  "risk": "3",
+  "title": "SmartAccount.checkSignatures() does not check correctly when v is 0",
+  "issueId": 347,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/347"
+}
