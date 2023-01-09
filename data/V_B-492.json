@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "V_B",
+  "risk": "3",
+  "title": "Unsigned `tokenGasPriceFactor` parameter",
+  "issueId": 492,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/492"
+}
