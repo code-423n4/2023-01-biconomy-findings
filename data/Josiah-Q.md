@@ -1,3 +1,27 @@
+## UNUTILIZED LIBRARY
+Throughout the code bases, there are instances where functions in Math.sol are re-implemented instead of getting them utilized via library import.
+
+[Math.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol)
+
+```
+19:    function max(uint256 a, uint256 b) internal pure returns (uint256) {
+
+26:    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+```
+[SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)
+
+```
+181:    function max(uint256 a, uint256 b) internal pure returns (uint256) {
+
+224:        require(gasleft() >= max((_tx.targetTxGas * 64) / 63,_tx.targetTxGas + 2500) + 500, "BSA010");
+```
+[UserOperation.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol)
+
+```
+53:        return min(maxFeePerGas, maxPriorityFeePerGas + block.basefee);
+
+77    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+```
 ## MISSING EVENTS ON CRITICAL OPERATIONS
 Critical operations not triggering events will make it difficult to review the correct behavior of the contracts. Users and blockchain monitoring systems will not be able to easily detect suspicious behaviors without events.
 
@@ -5,6 +29,20 @@ Here is 1 instance found.
 
 [VerifyingSingletonPaymaster.sol#L65](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/paymasters/verifying/singleton/VerifyingSingletonPaymaster.sol#L65)
 
+```
+    function setSigner( address _newVerifyingSigner) external onlyOwner{
+```
+## REPEATED CHECK
+In `init()` of `SmartAccount.sol`, the zero address check on `_handler` was carried out twice. It is recommended removing the if statement that is associated with the redundant check.
+
+[SmartAccount.sol#L171-L174](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L171-L174)
+ 
+```
+        require(_handler != address(0), "Invalid Entrypoint");
+        owner = _owner;
+        _entryPoint =  IEntryPoint(payable(_entryPointAddress));
+        if (_handler != address(0)) internalSetFallbackHandler(_handler);
+```
 ## TYPO ERRORS
 [SmartAccount.sol#L74](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L74)
 
@@ -18,8 +56,6 @@ Here is 1 instance found.
     @ send
                 // This check is not completely accurate, since it is possible that more signatures than the threshold are send.
 ```
-[SmartAccount.sol#L382](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L382)
-
 [SmartAccount.sol#L382](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L382)
 
 ```
@@ -37,7 +73,7 @@ Open TODO can point to an architecture or programming issue needing to be resolv
 
 Here are the 2 instances found.
 
-[SmartAccountNoAuth.sol#L44](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L44)
+[SmartAccountNoAuth.sol#L44](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L44) (Note: Out of scope but included here for informational purpose)
 
 ```
     // todo? rename wallet to account
@@ -61,7 +97,15 @@ Here is 1 instance found.
 ```
         modules[module] = address(0);
 ```
-## USE UINT256 INSTEAD OF 'UINT`
+## UNNECESSARY CASTING
+In `checkSignatures()` of `SmartAccount.sol`, casting 1 to uint256, i.e. `uint256(1)`, and then making it a factor in a product is neither necessary and needed. First off, the numeral 1 is already an unsigned integer. Secondly, the product of 1 * 65 is equivalent to 65.
+
+[SmartAccount.sol#L322](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L322)
+
+```
+                require(uint256(s) >= uint256(1) * 65, "BSA021");
+```
+## USE UINT256 INSTEAD OF UINT
 For explicitness reason, it is recommended replacing all instances of `uint` with `uint256`. 
 
 Here are the 7 instances of `uint` used in the code base.
@@ -107,3 +151,46 @@ Here are 4 of the instances found.
 
 478:        (bool success, bytes memory result) = target.call{value : value}(data);
 ```
+## WHILE LOOP SKIPPED LEADS TO FUTILE RETURNED VARIABLES
+In `getModulesPaginated()` of `ModuleManager.sol`, the while logic would be bypassed if `modules[start]` was mapped to zero address, and then the function would run to return an empty array and a zero address.
+
+It is recommended isolating `currentModule != address(0x0)` to a require statement before the while loop. That way, the function would revert if the condition wasn't met and skip the rest of the unneeded executions.
+
+[ModuleManager.sol#L121](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/ModuleManager.sol#L121)
+
+```
+        while (currentModule != address(0x0) && currentModule != SENTINEL_MODULES && moduleCount < pageSize) {
+```
+## NOMENCLATURE
+Interfaces should be named beginning with the letter `I` while contracts, abstract contracts, and libraries should avoid having their names prepended with `I`.
+
+Here are the 4 instances found.
+
+[ERC1155TokenReceiver.sol#L7](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC1155TokenReceiver.sol#L7)
+
+```
+interface ERC1155TokenReceiver {
+```
+[ERC721TokenReceiver.sol#L5](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC721TokenReceiver.sol#L5)
+
+```
+interface ERC721TokenReceiver {
+```
+[ERC777TokensRecipient.sol#L4](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC777TokensRecipient.sol#L4)
+
+```
+interface ERC777TokensRecipient {
+```
+[ISignatureValidator.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ISignatureValidator.sol)
+
+```
+4: contract ISignatureValidatorConstants {
+
+9: abstract contract ISignatureValidator is ISignatureValidatorConstants {
+```
+## STATICCALL 
+As denoted in [MEDIUM](https://medium.com/blockchannel/state-specifiers-and-staticcall-d50d5b2e4920):
+
+"The Byzantium network upgrade ... will add a STATICCALL opcode that enforces read-only calls at runtime. Solidity only implements the STATICCALL opcode in its assembly language ..."
+
+Consider commenting and/or documenting in the protocol how [`staticcall()`](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/utils/Exec.sol#L19-L27) is gaslessly engaged on reverting methods that are used for gas estimations in SmartAccount.sol as well as simulations in EntryPoint.sol.
