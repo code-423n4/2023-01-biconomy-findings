@@ -34,9 +34,9 @@ https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts
 ## 2. MISSING `address(0)` CHECK FOR THE `_implementation` ADDRESS.
 
 _implementation variable on https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/Proxy.sol#L15 could be set as address(0) by mistake.
-There is no way to change this since this is the constructor and will called only once during the deployment of the contract.
+There is no way to change this since this is the constructor and will be called only once during the deployment of the contract.
 
-Recommended to `address(0)` check as follows:
+Recommended to do `address(0)` check as follows:
 
 	require(_implementation != address(0), "Address cannot be zero");
 	
@@ -46,7 +46,7 @@ https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts
 
          assert(_IMPLEMENTATION_SLOT == bytes32(uint256(keccak256("biconomy.scw.proxy.implementation")) - 1));
 
-Add a description message to the assert function for the revert. It is very important to add a revert message, since `msg.sender` has enough information to learn the reason of failure.
+Add a description message to the assert function for the revert. It is very important to add a revert message, then `msg.sender` has enough information to learn the reason of failure.
 
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/Proxy.sol#L16
 
@@ -60,11 +60,11 @@ https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts
         require(_implementation.isContract(), "INVALID_IMPLEMENTATION"); //@audit - does this check for zero address
         _setImplementation(_implementation);
 
-By mistake _implementation could be set to address(0). It is a good practice to check for address(0).	
+By mistake _implementation could be set to address(0). Hence it is a good practice to check for address(0).	
 
 	require(_implementation != address(0), "Address cannot be zero");
 	
-Hence it is recommended to check for the address(0) for the _implementation variable before `_setImplementation(_implementation)` is called.
+It is recommended to check for the address(0) for the _implementation variable before `_setImplementation(_implementation)` is called.
 
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L120-L122
 
@@ -83,7 +83,7 @@ https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts
 		
 In the above code the `require(_handler != address(0), "Invalid Entrypoint");` checks for the zero address condition. Hence there is no need to check the same condition using the if conditional check `if (_handler != address(0))`
 
-Above code given code can be changed as follows:
+Above given code can be changed as follows:
 
         require(_handler != address(0), "Invalid Entrypoint");
         owner = _owner;
@@ -97,7 +97,7 @@ There is 1 more instance of this issue:
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L171-L174
 
 
-## 6. CHECK FOR THE CONTRACT EXISTENCE USING `extcodesize` IF USING LOW LEVEL `call` FUNCTION TO SEND ETHER TO CONTRACTS WITH `recieve()` FUNCTIONS.
+## 6. CHECK FOR THE CONTRACT EXISTENCE USING `extcodesize` IF LOW LEVEL `call` FUNCTION IS USED TO SEND ETHER TO CONTRACTS WITH `recieve()` FUNCTIONS.
 
             (bool success,) = receiver.call{value: payment}(""); 
             require(success, "BSA011");
@@ -207,7 +207,7 @@ https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts
 
             require(_signer == owner || true, "INVALID_SIGNATURE");
 			
-In the above condition the require statement does a "OR" operation with the `true`. Hence condition always results in true. This can be a coding error or if not require function can be removed.
+In the above condition the require statement does a "OR" operation with the `true`. Hence condition always results in true. This can be a coding error or if not `require` function can be removed.
 
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L343
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L346
@@ -220,7 +220,7 @@ The emitted events will not revert even if the function reverts if conditional c
         (bool success,) = withdrawAddress.call{value : stake}(""); 
         require(success, "failed to withdraw stake"); 
 		
-The require function can revert, but the event has already been emitted.
+The `require` function can revert, but the `StakeWithdrawn` event has already been emitted.
 It is recommended to emit the event ones all the state changes and conditional checks have been completed. 
 
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol#L105-L107
@@ -228,3 +228,17 @@ https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts
 There is 1 more instance of this issue:
 
 https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol#L119
+
+## 13. TRANSACTION GAS LIMIT IS HARD CODED TO `21,000`. THIS CAN BE CHANGED IN THE FUTURE DUE TO ETHEREUM HARD FORK OR OTHER PROTOCOL CHANGES.
+
+        uint256 startGas = gasleft() + 21000 + msg.data.length * 8; 
+		
+In the above line of code, to calculate the `startGas` the transaction gas limit is hardcoded as `21000`.
+But in the future due to hard forks or other protocol changes in the ethereum network the default trasaction gas limit of `21,000` could change.
+This could impact all the gas calculations based on the above `startGas` calculation. Hence could impact the transactions based on this gas calculation.
+
+It is recommended to use a variable for the transaction gas limit instead of hardcoding it to `21,000`. And should implement a setter function to update the transaction gas limit if a change happens to it in the future.
+
+There are two instances of this issue.
+https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L200
+https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L200
