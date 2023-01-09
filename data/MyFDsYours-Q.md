@@ -3,6 +3,7 @@
 	[L-01] Lack of two steps procedure for new ownership
 	[NC-01] RETURNDATASIZE opcode is called 3 times 
 	[NC-02] Repeated function getNonce() and nonce()
+	[NC-03] Missing docstrings
 
 
 # [L-01] Lack of two steps procedure for new ownership
@@ -59,3 +60,20 @@ Also present in ModuleManager [L93](https://github.com/code-423n4/2023-01-bicono
 ### Recommandation 
 
 	Remove the nouce() and keep getNounce() that is more explecit 
+
+# [NC-03] Missing docstrings
+
+	Throughout the codebase there are several parts that do not have docstrings. Some examples are:
+
+[L449](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L449) in the SmartAccount contract
+
+[L455](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L455) in the SmartAccount contract
+
+[L460](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L460) in the SmartAccount contract
+
+[L465](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L465) in the SmartAccount contract
+
+[L494](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L494) in the SmartAccount contract
+
+
+When writing docstrings, consider following the [Ethereum Natural Specification Format](https://docs.soliditylang.org/en/develop/natspec-format.html) (NatSpec).
