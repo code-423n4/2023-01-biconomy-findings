@@ -230,6 +230,22 @@ Here are some of the instances entailed:
 
 68:        require(msg.sender != SENTINEL_MODULES && modules[msg.sender] != address(0), "BSA104");
 ```
+## Unneeded zero address check
+Consider removing `module != address(0)` since `modules[prevModule] == module` is going to revert if `module == address(0)` to save gas both on contract deployment and function calls:
+
+[File: ModuleManager.sol#L47-L54](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/ModuleManager.sol#L47-L54)
+
+```diff
+    function disableModule(address prevModule, address module) public authorized {
+        // Validate module address and check that it corresponds to module index.
+-        require(module != address(0) && module != SENTINEL_MODULES, "BSA101");
++        require(module != SENTINEL_MODULES, "BSA101");
+        require(modules[prevModule] == module, "BSA103");
+        modules[prevModule] = modules[module];
+        modules[module] = address(0);
+        emit DisabledModule(module);
+    }
+```
 ## Use storage instead of memory for structs/arrays
 A storage pointer is cheaper since copying a state struct in memory would incur as many SLOADs and MSTOREs as there are slots. In another words, this causes all fields of the struct/array to be read from storage, incurring a Gcoldsload (2100 gas) for each field of the struct/array, and then further incurring an additional MLOAD rather than a cheap stack read. As such, declaring the variable with the storage keyword and caching any fields that need to be re-read in stack variables will be much cheaper, involving only Gcoldsload for all associated field reads. Read the whole struct/array into a memory variable only when it is being returned by the function, passed into a function that requires memory, or if the array/struct is being read from another memory array/struct.
 
