@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "wait",
+  "risk": "2",
+  "title": "Invoking execute and executeBatch of SmartAccount from EntryPoint will always revert",
+  "issueId": 377,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/377"
+}
