@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "immeas",
+  "risk": "2",
+  "title": "methods used by EntryPoint has `onlyOwner` modifier",
+  "issueId": 390,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/390"
+}
