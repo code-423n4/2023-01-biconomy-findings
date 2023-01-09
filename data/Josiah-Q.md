@@ -276,3 +276,18 @@ Here are some of the instances found.
 
 302:    function checkSignatures( // Missing @param data
 ```
+## UNNECESSARY ZERO ADDRESS CHECK
+The zero address check in `disableModule()` is unneeded because `modules[prevModule] == module` will have that taken care of:
+
+[ModuleManager.sol#L47-L54](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/ModuleManager.sol#L47-L54)
+
+```
+    function disableModule(address prevModule, address module) public authorized {
+        // Validate module address and check that it corresponds to module index.
+        require(module != address(0) && module != SENTINEL_MODULES, "BSA101");
+        require(modules[prevModule] == module, "BSA103");
+        modules[prevModule] = modules[module];
+        modules[module] = address(0);
+        emit DisabledModule(module);
+    }
+```
