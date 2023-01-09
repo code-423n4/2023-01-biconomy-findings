@@ -8,7 +8,7 @@ File: `SmartAccount.sol` [Line 181-183](https://github.com/code-423n4/2023-01-bi
 
 ## 2. Use `uint256` instead of `uint`
 
-`uint` is just a shorthand of `uint256`. To be more explicit, consider replacing any instances of `uint` with `uint256` where possible.
+`uint` is just a shorthand for `uint256`. To be more explicit, consider replacing any instances of `uint` with `uint256` where possible.
 
 - File: `SmartAccount.sol` [Line 449](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L449)
 - File: `SmartAccount.sol` [Line 468](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L468)
@@ -67,7 +67,7 @@ require(dest.isContract(), "Invalid contract");
 
 ## 7. Spaced comment
 
-Adding a space before a comment can make text easier to read, thus increasing readability.
+Adding a space before a comment can make the text easier to read, thus increasing readability.
 
 - File: `BaseSmartAccount.sol` [Line 22](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L22)
 - File: `BaseSmartAccount.sol` [Line 110](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L110)
@@ -159,10 +159,24 @@ As seen above, `this` is not explicitly converted to address. Consider refactori
         return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), address(this)));
 ```
 
-## 11. Commented out code
+## 11. Commented-out code
 
-Commented out code adds confusion and distracts readers from the actual code. Consider at least removing commented out code before deploying.
+Commented-out code adds confusion and distracts readers from the actual code. Consider at least removing commented-out code before deploying.
 
 - File: `SmartAccount.sol` [Line 235](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L235)
 - File: `SmartAccount.sol` [Line 237-238](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L237-L238)
 - File: `SmartAccount.sol` [Line 242-243](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L242-L243)
+
+## 12. Long byte values are susceptible to human error
+
+[`Singleton.sol`](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/Singleton.sol#L13) uses `assert()` to check the constant with its `bytes32()`. However, the following constants in `SmartAccount.sol` are not found to be doing such:
+
+File: `SmartAccount.sol` [Line 42](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L42), [Line 48](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L48)
+
+```solidity
+42:    bytes32 internal constant DOMAIN_SEPARATOR_TYPEHASH = 0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218;
+
+48:    bytes32 internal constant ACCOUNT_TX_TYPEHASH = 0xc2595443c361a1f264c73470b9410fd67ac953ebd1a3ae63a2f514f3f014cf07;
+```
+
+Consider using `assert()` in the `constructor()` to verify the above constants.
