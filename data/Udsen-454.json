@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "THE PROTOCOL HEAVILY DEPENDS ON ADMIN ACTIONS, HENCE SINGLE-STEP OWNERSHIP TRANSFER IS DANGEROUS",
+  "issueId": 454,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/454"
+}
