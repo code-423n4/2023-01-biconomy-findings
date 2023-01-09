@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "JohnnyTime",
+  "risk": "3",
+  "title": "Owner could brick all proxies by overwriting the implementation contract and making `updateImplementation` unusable",
+  "issueId": 412,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/412"
+}
