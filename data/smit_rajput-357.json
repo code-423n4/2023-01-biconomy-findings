@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "smit_rajput",
+  "risk": "3",
+  "title": "Attacker can selfdestruct the code/logic of SmartAccount's implementation contract, leading to permanent loss of funds, of the owner of SmartAccount",
+  "issueId": 357,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/357"
+}
