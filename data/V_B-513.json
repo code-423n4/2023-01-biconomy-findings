@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "V_B",
+  "risk": "2",
+  "title": "Incorrect management of requested gas amount in EIP-4337 logic",
+  "issueId": 513,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/513"
+}
