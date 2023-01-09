@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "THE ETHEREUM WILL GET LOCKED IN THE CONTRACT IF THE EXTERNAL CALL FUNCTION REVERTS DUE TO REQUIRE FUNCTION FAILURE",
+  "issueId": 484,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/484"
+}
