@@ -1,7 +1,7 @@
 ## Private function with embedded modifier reduces contract size
 Consider having the logic of a modifier embedded through a private function to reduce contract size if need be. A private visibility that saves more gas on function calls than the internal visibility is adopted because the modifier will only be making this call inside the contract.
 
-For instance, the modifier instance below may be refactored as follows:
+For instance, the modifier instance below may be refactored as follows just as it has been implemented in [SelfAuthorized.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/SelfAuthorized.sol):
 
 [File: SmartAccountNoAuth.sol#L82-L85](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L82-L85)
 
@@ -48,7 +48,7 @@ For instance, the code block below may be refactored as follows:
 ## Check logic that could lead to waste of gas
 In ModuleManager.sol, `getModulesPaginated()` has `currentModule != address(0x0)` included in the `while` statement. If `start` was inputted as a non-existent key, `(currentModule == address(0x0)`. This would skip the `while` loop and move on to executing the rest of the code lines while irrelevantly and meaninglessly returning the output.
 
-Consider separating the zero address check by having the function refactored as follows:
+Consider separating the zero address check by having the function refactored as follows so that a revert could stem unneeded code executions coming after it:
 
 [File: ModuleManager.sol#L114-L132](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/base/ModuleManager.sol#L114-L132)
 
@@ -116,6 +116,37 @@ As an example, consider replacing `>=` with the strict counterpart `>` in the fo
 -              require(uint256(s) >= uint256(1) * 65, "BSA021");
 +              require(uint256(s) > uint256(1) * 65 - 1, "BSA021");
 ```
+## Early checks
+In BaseSmartAccount.sol, `(missingAccountFunds != 0)` should be prepended before `_payPrefund()` is invoked in `validateUserOp()` instead of being included in `_payPrefund()`. This will make the external function call revert earlier to save some gas if need be.
+
+[File: BaseSmartAccount.sol#L60-L68](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L60-L68)
+
+```diff
+    function validateUserOp(UserOperation calldata userOp, bytes32 userOpHash, address aggregator, uint256 missingAccountFunds)
+    external override virtual returns (uint256 deadline) {
+        _requireFromEntryPoint();
+        deadline = _validateSignature(userOp, userOpHash, aggregator);
+        if (userOp.initCode.length == 0) {
+            _validateAndUpdateNonce(userOp);
+        }
++        if (missingAccountFunds != 0) {
+            _payPrefund(missingAccountFunds);
++        }
+    }
+```
+[File: BaseSmartAccount.sol#L106-L112](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L106-L112)
+
+```diff
+    function _payPrefund(uint256 missingAccountFunds) internal virtual {
+-        if (missingAccountFunds != 0) {
+            (bool success,) = payable(msg.sender).call{value : missingAccountFunds, gas : type(uint256).max}("");
+-            (success);
+            //ignore failure (its EntryPoint's job to verify, not account.)
+-        }
+    }
+```
+Since `success` isn't going to be checked, it may also be removed from the code block to save gas both on contract deployment and function call.
+
 ## Unchecked SafeMath saves gas
 "Checked" math, which is default in ^0.8.0 is not free. The compiler will add some overflow checks, somehow similar to those implemented by `SafeMath`. While it is reasonable to expect these checks to be less expensive than the current `SafeMath`, one should keep in mind that these checks will increase the cost of "basic math operation" that were not previously covered. This particularly concerns variable increments in for loops. When no arithmetic overflow/underflow is going to happen, `unchecked { ... }` to use the previous wrapping behavior further saves gas just as in the instance below as an example:
 
