@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "taek",
+  "risk": "3",
+  "title": "User can bypass the sponsored tx policy and can possibly drain paymaster's deposit",
+  "issueId": 360,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/360"
+}
