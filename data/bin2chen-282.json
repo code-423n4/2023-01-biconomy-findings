@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "bin2chen",
+  "risk": "3",
+  "title": "Signature vulnerability in execTransaction()",
+  "issueId": 282,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/282"
+}
