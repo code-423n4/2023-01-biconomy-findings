@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ey88",
+  "risk": "3",
+  "title": "An attacker can create a smart contract wallet with a malicious config and the address that the user expects his smart contract to have ",
+  "issueId": 456,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/456"
+}
