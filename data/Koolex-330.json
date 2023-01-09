@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Koolex",
+  "risk": "3",
+  "title": "UserOperation's signature lacks important dependencies such as chainId and EntryPoint address besides missing data integrity check",
+  "issueId": 330,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/330"
+}
