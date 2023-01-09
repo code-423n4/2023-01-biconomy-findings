@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Koolex",
+  "risk": "3",
+  "title": "Uninitialized implementation contract (SmartAccount) can be taken over by an attacker",
+  "issueId": 324,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/324"
+}
