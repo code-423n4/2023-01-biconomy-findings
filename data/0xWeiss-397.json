@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xWeiss",
+  "risk": "2",
+  "title": "amount has to be bigger than 0",
+  "issueId": 397,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/397"
+}
