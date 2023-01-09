@@ -1,8 +1,0 @@
-{
-  "contest": 200,
-  "handle": "h5n8514",
-  "risk": "3",
-  "title": "execTransaction function does not properly verify nonce, make a transaction will able to be executed multiple times. ",
-  "issueId": 210,
-  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/210"
-}
