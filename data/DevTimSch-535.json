@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "DevTimSch",
+  "risk": "3",
+  "title": "Relayers can steal extra fees from smart contract wallets on every transaction",
+  "issueId": 535,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/535"
+}
