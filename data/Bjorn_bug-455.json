@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Bjorn_bug",
+  "risk": "2",
+  "title": " SmartAccount Inherits from Initializable but the Initializable contract is not imported from openzepplin",
+  "issueId": 455,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/455"
+}
