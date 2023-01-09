@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Lirios",
+  "risk": "3",
+  "title": "Missing EIP1271 _signer validation",
+  "issueId": 334,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/334"
+}
