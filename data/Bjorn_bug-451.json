@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Bjorn_bug",
+  "risk": "2",
+  "title": "SmartAccount.sol Inherit from ISignatureValidatorConstants instead of ISignatureValidator ",
+  "issueId": 451,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/451"
+}
