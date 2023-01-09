@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "tsvetanovv",
+  "risk": "2",
+  "title": "Hardcoding gas costs should be avoided",
+  "issueId": 428,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/428"
+}
