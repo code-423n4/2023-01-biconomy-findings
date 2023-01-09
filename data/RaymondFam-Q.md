@@ -34,12 +34,17 @@ Or, better yet, use `assert()` to make it absolute error free in the constructor
 ## Open TODOs
 Open TODOs can point to architecture or programming issues that still need to be resolved. Consider resolving them before deploying.
 
-Here is an instance entailed:
+Here are some of the instances entailed:
 
 [File: SmartAccountNoAuth.sol#L44](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L44)
 
 ```solidity
     // todo? rename wallet to account
+```
+[File: EntryPoint.sol#L255](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L255)
+
+```solidity
+        // TODO: copy logic of gasPrice?
 ```
 ## Empty blocks
 Function with empty block should have a comment explaining why it is empty, or an event emitted.
@@ -57,9 +62,9 @@ For instance, the fallback instance may be refactored as follows just as it has 
 +    }
 ```
 ## Library not adequately utilized
-[`max()` in Math.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L19-L21) should be imported and made used of instead of being re-implemented in the contract.
+Library functions in [Math.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/libs/Math.sol#L19-L21) should be imported and fully made used of in the protocol instead of being re-implemented in the contracts.
 
-Here are some of the instances entailed:
+Here are the `max()` and `min()` instances entailed:
 
 [File: SmartAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol)
 
@@ -70,7 +75,16 @@ Here are some of the instances entailed:
 182:        return a >= b ? a : b;
 183:    }
 ```
-## Missing Checks for Contract Existence
+[File: UserOperation.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol)
+
+```solidity
+53:        return min(maxFeePerGas, maxPriorityFeePerGas + block.basefee);
+
+77:    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+78:        return a < b ? a : b;
+79:    }
+```
+## Missing checks for contract existence
 Performing a low-level calls without confirming contract’s existence (not yet deployed or have been destructed which could still be a non-zero address) could return success even though no function call was executed as documented in the link below:
 
 https://docs.soliditylang.org/en/v0.8.7/control-structures.html#error-handling-assert-require-revert-and-exceptions
@@ -127,7 +141,7 @@ For instance, the `a[x]` instance below may be refactored as follows:
 -        modules[module] = address(0);
 +        delete modules[module];
 ```
-## Use of `uint` Instead of `uint256`
+## `uint256` over `uint`
 Across the code base, there are numerous instances of `uint`, as opposed to `uint256`. In favor of explicitness, consider replacing all instances of `uint` with `uint256`.
 
 Here are some of the instances entailed:
@@ -178,3 +192,78 @@ Additionally, inside each contract, library or interface, use the following orde
 type declarations, state variables, events, modifiers, functions
 
 Consider adhering to the above guidelines for all contract instances entailed.
+
+## Contracts should be imported
+In `ISignatureValidator.sol`, the contract `ISignatureValidatorConstants` is showing up in its entirety at the top of the abstract contract `ISignatureValidator` which facilitates ease of references on the same file page. 
+
+Additionally, both the contract and the abstract contract have been named with the prefix `I` that is generally (if not exclusively) reserved for interfaces.
+
+Consider:
+1. having their names renamed as follows:
+
+[File: ISignatureValidator.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ISignatureValidator.sol)
+
+```solidity
+// SPDX-License-Identifier: LGPL-3.0-only
+pragma solidity 0.8.12;
+
+- contract ISignatureValidatorConstants {
++ contract SignatureValidatorConstants {
+    // bytes4(keccak256("isValidSignature(bytes,bytes)")
+    bytes4 internal constant EIP1271_MAGIC_VALUE = 0x20c13b0b;
+}
+
+- abstract contract ISignatureValidator is ISignatureValidatorConstants {
++ abstract contract SignatureValidator is ISignatureValidatorConstants {
+    /**
+     * @dev Should return whether the signature provided is valid for the provided data
+     * @param _data Arbitrary length data signed on the behalf of address(this)
+     * @param _signature Signature byte array associated with _data
+     *
+     * MUST return the bytes4 magic value 0x20c13b0b when function passes.
+     * MUST NOT modify state (using STATICCALL for solc < 0.5, view modifier for solc > 0.5)
+     * MUST allow external calls
+     */
+    function isValidSignature(bytes memory _data, bytes memory _signature) public view virtual returns (bytes4);
+}
+```
+2. saving the contract entailed into SignatureValidatorConstants.sol, and have it imported like it has been done in all other contracts or abstract contracts.
+
+## Typo mistakes
+[File: ISignatureValidator.sol#L12](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ISignatureValidator.sol#L12)
+
+```diff
+-     * @param _data Arbitrary length data signed on the behalf of address(this)
++     * @param _data Arbitrary length data signed on behalf of address(this)
+```
+[File: SmartAccount.sol#L44](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L44)
+
+```diff
+-    // review? if rename wallet to account is must
++    // review? if renaming wallet to account is a must
+```
+[File: SmartAccount.sol#L74](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L74)
+
+```diff
+-     * @notice Throws if the sender is not an the owner.
++     * @notice Throws if the sender is not the owner.
+```
+[File: SmartAccount.sol#L153](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L153)
+
+```diff
+-     * @return nonce : the number of transaction made within said batch
++     * @return nonce : the number of transactions made within said batch
+```
+## `address(this)` over `this`
+As denoted in [Solidity Documentation](https://docs.soliditylang.org/en/v0.5.0/units-and-global-variables.html):
+
+"Prior to version 0.5.0, Solidity allowed address members to be accessed by a contract instance, for example this.balance. This is now forbidden and an explicit conversion to address must be done: address(this).balance."
+
+Here is an instance entailed:
+
+[File: SmartAccount.sol#L136](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L136)
+
+```diff
+-        return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), this));
++        return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), address(this)));
+```
