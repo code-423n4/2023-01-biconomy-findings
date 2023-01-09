@@ -14,7 +14,7 @@ https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts
 
 ## 2. INCREMENTS/DECREMENTS CAN BE UNCHECKED IN FOR-LOOPS IF THEY DONOT UNDERFLOW OR OVERFLOW
 
-        for (uint256 a = 0; a < opasLen; a++) {
+      for (uint256 a = 0; a < opasLen; a++) {
 		
 This can be re written as follows to save gas:
 
