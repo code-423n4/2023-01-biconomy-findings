@@ -38,4 +38,25 @@ Check that the entry point has code.
     returns (bytes4 magicValue);
 
 
+3. Incorrect "validateUserOp" implementation. 
+    If an invalid signature is provided in "validateUserOp", we should return an invalid message instead of reverting.
+   As stated from the eip: "SHOULD return SIG_VALIDATION_FAILED (and not revert) on signature mismatch."
+
+  The current implementation just reverts if the signatures don't belong to the owner: 
+   https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L506
+
+  ```solidity
+        require(owner == hash.recover(userOp.signature) || tx.origin == address(0), "account: wrong signature");
+```
+   Recommendation: Be compliant with the EIP, here is an example from the Infinitsm team: 
+  https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/samples/SimpleAccount.sol#L107
+```solidity
+ function _validateSignature(UserOperation calldata userOp, bytes32 userOpHash, address)
+    internal override virtual returns (uint256 sigTimeRange) {
+        bytes32 hash = userOpHash.toEthSignedMessageHash();
+        if (owner != hash.recover(userOp.signature))
+            return SIG_VALIDATION_FAILED;
+        return 0;
+    }
+```
 
