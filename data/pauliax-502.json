@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "pauliax",
+  "risk": "2",
+  "title": "Users can accidentally lock their stakes forever",
+  "issueId": 502,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/502"
+}
