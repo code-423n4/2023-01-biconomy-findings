@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ast3ros",
+  "risk": "3",
+  "title": "[H-02] An attacker could front-run the counter factual wallet and register malicious handler contract",
+  "issueId": 268,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/268"
+}
