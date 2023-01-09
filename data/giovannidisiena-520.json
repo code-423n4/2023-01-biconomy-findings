@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "giovannidisiena",
+  "risk": "2",
+  "title": "Bypass `depositFor` Contract Check",
+  "issueId": 520,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/520"
+}
