@@ -38,13 +38,8 @@ In `encodeTransactionData()` of SmartAccount.sol, `tokenGasPriceFactor` is missi
 ## Open TODOs
 Open TODOs can point to architecture or programming issues that still need to be resolved. Consider resolving them before deploying.
 
-Here are some of the instances entailed:
+Here is the one instance entailed:
 
-[File: SmartAccountNoAuth.sol#L44](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L44)
-
-```solidity
-    // todo? rename wallet to account
-```
 [File: EntryPoint.sol#L255](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L255)
 
 ```solidity
@@ -181,7 +176,7 @@ Some interfaces in the code bases are named without the prefix `I` that could ca
 
 ```diff
 - interface ERC721TokenReceiver {
-- interface IERC721TokenReceiver {
++ interface IERC721TokenReceiver {
 ```
 [File: ERC777TokensRecipient.sol#L4](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC777TokensRecipient.sol#L4)
 
