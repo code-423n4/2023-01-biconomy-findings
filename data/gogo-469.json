@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "gogo",
+  "risk": "3",
+  "title": "Signature Replay Attack when EntryPoint contract is changed",
+  "issueId": 469,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/469"
+}
