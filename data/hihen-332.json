@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "hihen",
+  "risk": "2",
+  "title": "Neither SmartAccount.execute() nor SmartAccount.executeBatch() can be called successfully by EntryPoint",
+  "issueId": 332,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/332"
+}
