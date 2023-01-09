@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0x73696d616f",
+  "risk": "2",
+  "title": "SmartAccountFactory.sol - Account can be created for an owner and setting any entryPoint",
+  "issueId": 536,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/536"
+}
