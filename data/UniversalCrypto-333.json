@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "UniversalCrypto",
+  "risk": "2",
+  "title": "Missing revert statement may lead to lost funds ",
+  "issueId": 333,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/333"
+}
