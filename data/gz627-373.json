@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "gz627",
+  "risk": "2",
+  "title": "Security risks exposed by `delegatecall` in `SmartAccount.execTransaction()` should be mitigated",
+  "issueId": 373,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/373"
+}
