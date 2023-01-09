@@ -33,8 +33,27 @@ As such, consider at least assigning these constants with their corresponding `b
 Or, better yet, use `assert()` to make it absolute error free in the constructor.  
 
 ## Missing `tokenGasPriceFactor`
-In `encodeTransactionData()` of SmartAccount.sol, `tokenGasPriceFactor` is missing in `keccak256(abi.encode())`. Consider commenting the omission adopted for this particular variable where possible for more distinct code readability.
+In `encodeTransactionData()` of SmartAccount.sol, [`refundInfo.tokenGasPriceFactor`](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/BaseSmartAccount.sol#L23) is missing in `keccak256(abi.encode())`. Consider commenting the omission adopted for this particular variable where possible for more distinct code readability.
 
+[File: SmartAccount.sol#L430-L444](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L430-L444)
+
+```solidity
+            keccak256(
+                abi.encode(
+                    ACCOUNT_TX_TYPEHASH,
+                    _tx.to,
+                    _tx.value,
+                    keccak256(_tx.data),
+                    _tx.operation,
+                    _tx.targetTxGas,
+                    refundInfo.baseGas,
+                    refundInfo.gasPrice,
+                    refundInfo.gasToken,
+                    refundInfo.refundReceiver,
+                    _nonce
+                )
+            );
+```
 ## Open TODOs
 Open TODOs can point to architecture or programming issues that still need to be resolved. Consider resolving them before deploying.
 
