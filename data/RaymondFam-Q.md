@@ -31,6 +31,9 @@ As such, consider at least assigning these constants with their corresponding `b
 ```
 Or, better yet, use `assert()` to make it absolute error free in the constructor.  
 
+## Missing `tokenGasPriceFactor`
+In `encodeTransactionData()` of SmartAccount.sol, `tokenGasPriceFactor` is missing in `keccak256(abi.encode())`. Consider commenting the omission adopted for this particular variable where possible for more distinct code readability.
+
 ## Open TODOs
 Open TODOs can point to architecture or programming issues that still need to be resolved. Consider resolving them before deploying.
 
@@ -112,8 +115,12 @@ Here is a contract instance with missing NatSpec in its entirety:
 
 [File: ERC777TokensRecipient.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/interfaces/ERC777TokensRecipient.sol)
 
+`checkSignatures()` missing `@param data`:
+
+[File: SmartAccount.sol#L297-L306](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L297-L306)
+
 ## Commented codes
-Throughout the code base, there are several commented code lines that could point to items that are not done or need redesigning, be a mistake, or just be testing overhead. Consider removing them before deployment for readability and conciseness.
+Throughout the code base, there are several commented code lines that could point to items that are not done or need redesigning, be a mistake, debugging or just be testing overhead. Consider removing them before deployment for readability and conciseness.
 
 Here are some of the instances entailed:
 
@@ -122,6 +129,11 @@ Here are some of the instances entailed:
 ```solidity
     // nice to have
     // event SmartAccountInitialized(IEntryPoint indexed entryPoint, address indexed owner);
+```
+[File: SmartAccount.sol#L201](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L201)
+
+```solidity
+        //console.log("init %s", 21000 + msg.data.length * 8);
 ```
 [File: SmartAccountFactory.sol#L22](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountFactory.sol#L22)
 
@@ -253,6 +265,25 @@ pragma solidity 0.8.12;
 ```diff
 -     * @return nonce : the number of transaction made within said batch
 +     * @return nonce : the number of transactions made within said batch
+```
+[File: SignatureDecoder.sol#L30-L31](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/SignatureDecoder.sol#L30-L31)
+
+```diff
+-            // 'byte' is not working due to the Solidity parser, so lets
++            // 'byte' is not working due to the Solidity parser, so let's
+            // use the second best option, 'and'
+```
+[File: SmartAccount.sol#L320](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L320)
+
+```diff
+-                // This check is not completely accurate, since it is possible that more signatures than the threshold are send.
++                // This check is not completely accurate, since it is possible that more signatures than the threshold are sent.
+```
+[File: SmartAccount.sol#L382](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L382)
+
+```diff
+-    /// @param targetTxGas Fas that should be used for the safe transaction.
++    /// @param targetTxGas Gas that should be used for the safe transaction.
 ```
 ## `address(this)` over `this`
 As denoted in [Solidity Documentation](https://docs.soliditylang.org/en/v0.5.0/units-and-global-variables.html):
