@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "MohanVarma",
+  "risk": "2",
+  "title": "No zero address check for withdrawAddress",
+  "issueId": 410,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/410"
+}
