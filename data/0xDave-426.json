@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xDave",
+  "risk": "3",
+  "title": "The Smart Account can be generated in duplicate, and the attacker uses it by frontrunning the wallet generation process.",
+  "issueId": 426,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/426"
+}
