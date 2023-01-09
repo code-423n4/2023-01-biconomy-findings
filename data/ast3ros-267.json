@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "ast3ros",
+  "risk": "3",
+  "title": "[H-01] An attacker contract can send transactions to the Smart Account and withdraw all the funds of user in the account",
+  "issueId": 267,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/267"
+}
