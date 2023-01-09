@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "horsefacts",
+  "risk": "3",
+  "title": "`SmartAccountFactory`: Adversaries can frontrun and backdoor deterministic wallet deployments",
+  "issueId": 284,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/284"
+}
