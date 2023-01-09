@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Rolezn",
+  "risk": "2",
+  "title": "No storage gap for upgradeable contract might lead to storage slot collision",
+  "issueId": 296,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/296"
+}
