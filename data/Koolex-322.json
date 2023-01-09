@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Koolex",
+  "risk": "3",
+  "title": "Incorrect implementation of EIP1271 causes invalid contract signature always",
+  "issueId": 322,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/322"
+}
