@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Kutu",
+  "risk": "2",
+  "title": "Calling execute() and executeBatch() functions in SmartAccount.sol from the EntryPoint will fail",
+  "issueId": 495,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/495"
+}
