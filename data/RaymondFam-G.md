@@ -3,7 +3,7 @@ Consider having the logic of a modifier embedded through a private function to r
 
 For instance, the modifier instance below may be refactored as follows just as it has been implemented in [SelfAuthorized.sol](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/common/SelfAuthorized.sol):
 
-[File: SmartAccountNoAuth.sol#L82-L85](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccountNoAuth.sol#L82-L85)
+[File: SmartAccount.sol#L82-L85](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L82-L85)
 
 ```diff
 +    function _mixedAuth() private view {
