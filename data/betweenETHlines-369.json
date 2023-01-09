@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "betweenETHlines",
+  "risk": "2",
+  "title": "`userOperation` with `initCode` can be frontrunned",
+  "issueId": 369,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/369"
+}
