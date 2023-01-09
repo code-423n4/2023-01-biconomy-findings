@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0xDave",
+  "risk": "2",
+  "title": "Cannot use dApp with value when calling `executeBatch`",
+  "issueId": 396,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/396"
+}
