@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "peakbolt",
+  "risk": "3",
+  "title": "Potential hash collision and loss of fee from transaction failure, due to omission of batchId in the transaction hash computation ",
+  "issueId": 305,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/305"
+}
