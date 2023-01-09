@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Diana",
+  "risk": "2",
+  "title": "`executeBatch()` , `handleOps()`, `handleAggregatedOps`, `innerHandleOp()` are susceptible to DOS with block gas limit",
+  "issueId": 432,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/432"
+}
