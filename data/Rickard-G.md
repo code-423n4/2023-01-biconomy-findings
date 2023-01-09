@@ -1,54 +1,52 @@
-GAS OPTIMIZATIONS
-
 # STATE VARIABLES CAN BE PACKED INTO FEWER STORAGE SLOTS
 BaseSmartAccount.sol
 ```
 struct Transaction {
-        address to;
--       uint256 value;
-        bytes data;
-        Enum.Operation operation;
-+      uint256 value;
-        uint256 targetTxGas;
-    }
+        	address to;
+-      	uint256 value;
+        	bytes data;
+        	Enum.Operation operation;
++      	uint256 value;
+        	uint256 targetTxGas;
+    	}
 
 ```
 ```
 struct FeeRefund {
-+      address gasToken;
-        uint256 baseGas;
-        uint256 gasPrice; //gasPrice or tokenGasPrice
-        uint256 tokenGasPriceFactor;
--       address gasToken;
-        address payable refundReceiver;
-    }
++      	address gasToken;
+        	uint256 baseGas;
+        	uint256 gasPrice; //gasPrice or tokenGasPrice
+        	uint256 tokenGasPriceFactor;
+-       	address gasToken;
+        	address payable refundReceiver;
+    	}
 
 ```
 EntryPoint.sol
 ```
-    struct MemoryUserOp {
-        address sender;
-address paymaster;
-        uint256 nonce;
-        uint256 callGasLimit;
-        uint256 verificationGasLimit;
-        uint256 preVerificationGas;
-address paymaster;
-        uint256 maxFeePerGas;
-        uint256 maxPriorityFeePerGas;
-    }
+    	struct MemoryUserOp {
+        		address sender;
++		address paymaster;
+       	 	uint256 nonce;
+       		uint256 callGasLimit;
+       		uint256 verificationGasLimit;
+       		uint256 preVerificationGas;
+-		address paymaster;
+        		uint256 maxFeePerGas;
+       		uint256 maxPriorityFeePerGas;
+    		}
 ```
 ```
-    struct DepositInfo {
-uint112 deposit;
- bool staked;
-uint112 stake;
-        uint32 unstakeDelaySec;
-        uint64 withdrawTime;
-uint112 stake;
-uint112 deposit;
-bool staked;
-    }
+    		struct DepositInfo {
+-		uint112 deposit;
+-		bool staked;
+-		uint112 stake;
+        		uint32 unstakeDelaySec;
+        		uint64 withdrawTime;
++		uint112 stake;
++		uint112 deposit;
++		bool staked;
+    		}
 ```
 # BYTES CONSTANTS ARE MORE EFFICIENT THAN STRING CONSTANTS
 If data can fit into 32 bytes, then you should use bytes32 datatype rather than bytes or strings as it is cheaper in solidity.
@@ -62,105 +60,105 @@ If data can fit into 32 bytes, then you should use bytes32 datatype rather than 
 ```
 DefaultCallbackHandler.sol [L12](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/handler/DefaultCallbackHandler.sol#L12), [L13](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/handler/DefaultCallbackHandler.sol#L13)
 ```
-12     string public constant NAME = "Default Callback Handler";
-13     string public constant VERSION = "1.0.0";
+12     	string public constant NAME = "Default Callback Handler";
+13    	string public constant VERSION = "1.0.0";
 ```
 # REPLACE MODIFIER WITH FUNCTION
 SmartAccount.sol: [L76](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/SmartAccount.sol#L76)
 ```
--    modifier onlyOwner {
-+    function onlyOwner() private view {
-77        require(msg.sender == owner, "Smart Account:: Sender is not authorized");
--        _;
-79   }
+76	-	modifier onlyOwner {
+76	+	function onlyOwner() private view {
+77        		require(msg.sender == owner, "Smart Account:: Sender is not authorized");
+78	-	 	_;
+79   		}
 80
-81   // onlyOwner OR self
--   modifier mixedAuth {
-+   function mixedAuth() private view {
-83        require(msg.sender == owner || msg.sender == address(this),"Only owner or self");
--       _;
-85   }
+81   		// onlyOwner OR self
+82	-	modifier mixedAuth {
+82	+	function mixedAuth() private view {
+83        		require(msg.sender == owner || msg.sender == address(this),"Only owner or self");
+84	-	 	_;
+85   		}
 86
-87  // only from EntryPoint
--   modifier onlyEntryPoint {
-+   function onlyEntryPoint() private view {
-89       require(msg.sender == address(entryPoint()), "wallet: not from EntryPoint");
--      _; 
-91  }
+87  		// only from EntryPoint
+88	-	modifier onlyEntryPoint {
+88	+	function onlyEntryPoint() private view {
+89       			require(msg.sender == address(entryPoint()), "wallet: not from EntryPoint");
+90	-		_; 
+91		}
 
--   function setOwner(address _newOwner) external mixedAuth {
-+   function setOwner(address _newOwner) external {
-+	 mixedAuth();
-110       require(_newOwner != address(0), "Smart Account:: new Signatory address cannot be zero");
-111       address oldOwner = owner;
-112       owner = _newOwner;
-113        emit EOAChanged(address(this), oldOwner, _newOwner);
-114   }
+109	-	function setOwner(address _newOwner) external mixedAuth {
+109	+	function setOwner(address _newOwner) external {
++	 	mixedAuth();
+110       		require(_newOwner != address(0), "Smart Account:: new Signatory address cannot be zero");
+111       		address oldOwner = owner;
+112       		owner = _newOwner;
+113        		emit EOAChanged(address(this), oldOwner, _newOwner);
+114		}
 
--    function updateImplementation(address _implementation) external mixedAuth {
-+    function updateImplementation(address _implementation) external {
-+	  mixedAuth()
-121        require(_implementation.isContract(), "INVALID_IMPLEMENTATION");
-122        _setImplementation(_implementation);
-123        // EOA + Version tracking
-124        emit ImplementationUpdated(address(this), VERSION, _implementation);
-125    }
+120	-	function updateImplementation(address _implementation) external mixedAuth {
+120	+	function updateImplementation(address _implementation) external {
++	  	mixedAuth()
+121        		require(_implementation.isContract(), "INVALID_IMPLEMENTATION");
+122        		_setImplementation(_implementation);
+123        		// EOA + Version tracking
+124        		emit ImplementationUpdated(address(this), VERSION, _implementation);
+125		}
 
--    function updateEntryPoint(address _newEntryPoint) external mixedAuth {
-+    function updateEntryPoint(address _newEntryPoint) external {
-+	   mixedAuth()
-128         require(_newEntryPoint != address(0), "Smart Account:: new entry point address cannot be zero");
-129         emit EntryPointChanged(address(_entryPoint), _newEntryPoint);
-130         _entryPoint = IEntryPoint(payable(_newEntryPoint));
-131     }
+127	-	function updateEntryPoint(address _newEntryPoint) external mixedAuth {
+127	+	function updateEntryPoint(address _newEntryPoint) external {
++	   	mixedAuth()
+128         		require(_newEntryPoint != address(0), "Smart Account:: new entry point address cannot be zero");
+129         		emit EntryPointChanged(address(_entryPoint), _newEntryPoint);
+130        		 _entryPoint = IEntryPoint(payable(_newEntryPoint));
+131     		}
 
--    function transfer(address payable dest, uint amount) external nonReentrant onlyOwner {
-+    function transfer(address payable dest, uint amount) external nonReentrant {
-+	   onlyOwner();
-450         require(dest != address(0), "this action will burn your funds");
-451         (bool success,) = dest.call{value:amount}("");
-452         require(success,"transfer failed");
-453     }
+449	-	function transfer(address payable dest, uint amount) external nonReentrant onlyOwner {
+449	+	function transfer(address payable dest, uint amount) external nonReentrant {
++		onlyOwner();
+450        	 	require(dest != address(0), "this action will burn your funds");
+451         		(bool success,) = dest.call{value:amount}("");
+452         		require(success,"transfer failed");
+453     		}
 
--    function pullTokens(address token, address dest, uint256 amount) external onlyOwner {
-+    function pullTokens(address token, address dest, uint256 amount) external {
-+	   onlyOwner ();
-456        IERC20 tokenContract = IERC20(token);
-457        SafeERC20.safeTransfer(tokenContract, dest, amount);
-458    }
+455	-	function pullTokens(address token, address dest, uint256 amount) external onlyOwner {
+455	+	function pullTokens(address token, address dest, uint256 amount) external {
++	   	onlyOwner ();
+456        		IERC20 tokenContract = IERC20(token);
+457        		SafeERC20.safeTransfer(tokenContract, dest, amount);
+458    		}
 
--    function execute(address dest, uint value, bytes calldata func) external onlyOwner{
-+    function execute(address dest, uint value, bytes calldata func) external {
-+	  onlyOwner();
-461        _requireFromEntryPointOrOwner();
-462        _call(dest, value, func);
-463    }
+460	-	function execute(address dest, uint value, bytes calldata func) external onlyOwner{
+460	+	function execute(address dest, uint value, bytes calldata func) external {
++	  	onlyOwner();
+461       		 _requireFromEntryPointOrOwner();
+462        		_call(dest, value, func);
+463    		}
 
--    function executeBatch(address[] calldata dest, bytes[] calldata func) external onlyOwner{
-+    function executeBatch(address[] calldata dest, bytes[] calldata func) external {
-+	  onlyOwner();
-466        _requireFromEntryPointOrOwner();
-467        require(dest.length == func.length, "wrong array lengths");
-468        for (uint i = 0; i < dest.length;) {
-469            _call(dest[i], 0, func[i]);
-470            unchecked {
-471                ++i;
-472            }
-473        }
-474    }
+465	-	function executeBatch(address[] calldata dest, bytes[] calldata func) external onlyOwner{
+465	+	function executeBatch(address[] calldata dest, bytes[] calldata func) external {
++	  	onlyOwner();
+466       	 	_requireFromEntryPointOrOwner();
+467        		require(dest.length == func.length, "wrong array lengths");
+468       		 for (uint i = 0; i < dest.length;) {
+469            			_call(dest[i], 0, func[i]);
+470            			unchecked {
+471                			++i;
+472           	 		}
+473        		}
+474    		}
 
--    function execFromEntryPoint(address dest, uint value, bytes calldata func, Enum.Operation operation, uint256 gasLimit) external onlyEntryPoint returns (bool success) {        
-+    function execFromEntryPoint(address dest, uint value, bytes calldata func, Enum.Operation operation, uint256 gasLimit) external returns (bool success) {  
-+	  onlyEntryPoint();
-490        success = execute(dest, value, func, operation, gasLimit);
-491        require(success, "Userop Failed");
-492    }
+489	-	function execFromEntryPoint(address dest, uint value, bytes calldata func, Enum.Operation operation, uint256 gasLimit) external onlyEntryPoint returns (bool success) {        
+489	+	function execFromEntryPoint(address dest, uint value, bytes calldata func, Enum.Operation operation, uint256 gasLimit) external returns (bool success) {  
++	  	onlyEntryPoint();
+490        		success = execute(dest, value, func, operation, gasLimit);
+491        		require(success, "Userop Failed");
+492    		}
 
--    function withdrawDepositTo(address payable withdrawAddress, uint256 amount) public onlyOwner {
-+    function withdrawDepositTo(address payable withdrawAddress, uint256 amount) public {
-+	  onlyOwner(); 
-537        entryPoint().withdrawTo(withdrawAddress, amount);
-538    }
+536	-	function withdrawDepositTo(address payable withdrawAddress, uint256 amount) public onlyOwner {
+536	+	function withdrawDepositTo(address payable withdrawAddress, uint256 amount) public {
++	  	onlyOwner(); 
+537        		entryPoint().withdrawTo(withdrawAddress, amount);
+538    		}
 ```
 # FUNCTIONS GUARANTEED TO REVERT WHEN CALLED BY NORMAL USER CAN BE MARKED PAYABLE
 If a function modifier() is used, the function will be reverted if called by normal user.
@@ -266,15 +264,18 @@ Usually lines in source code are limited to 80 characters. Today's screens are m
     receive() external payable {}
 ```
 # AVOID FLOATING SOLIDITY PRAGMAS (^)
-[EntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L6)
-[SenderCreator.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/SenderCreator.sol#L2)
-[StakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol#L2)
-[IAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAccount.sol#L2)
-[IAggregatedAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAggregatedAccount.sol#L2)
-[IEntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol#L6)
-[IPaymaster.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IPaymaster.sol#L2)
-[IStakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IStakeManager.sol#L2)
-[UserOperation.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol#L2)
+- [EntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L6)
+- [SenderCreator.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/SenderCreator.sol#L2)
+- [StakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol#L2)
+- [IAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAccount.sol#L2)
+- [IAggregatedAccount.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IAggregatedAccount.sol#L2)
+- [IEntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IEntryPoint.sol#L6)
+- [IPaymaster.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IPaymaster.sol#L2)
+- [IStakeManager.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/IStakeManager.sol#L2)
+- [UserOperation.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/interfaces/UserOperation.sol#L2)
+```
+pragma solidity ^0.8.12;
+```
 # X = X + Y COSTS LESS THAN X += Y
 [EntryPoint.sol](https://github.com/code-423n4/2023-01-biconomy/blob/53c8c3823175aeb26dee5529eeefa81240a406ba/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L80)
 ```
@@ -291,7 +292,6 @@ Usually lines in source code are limited to 80 characters. Today's screens are m
 68        require(msg.sender != SENTINEL_MODULES && modules[msg.sender] != address(0), "BSA104");
 106      return SENTINEL_MODULES != module && modules[module] != address(0);
 ```
-
 
 
 
