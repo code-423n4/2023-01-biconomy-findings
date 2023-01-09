@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "0x1f8b",
+  "risk": "2",
+  "title": "Deny of service in `SmartAccountFactory`",
+  "issueId": 464,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/464"
+}
