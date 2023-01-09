@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Koolex",
+  "risk": "3",
+  "title": "The SmartAccount's validateUserOp function should return SIG_VALIDATION_FAILED  rather than revert if the signature is invalid",
+  "issueId": 318,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/318"
+}
