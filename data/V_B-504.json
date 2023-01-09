@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "V_B",
+  "risk": "3",
+  "title": "Incorrect signature check in the `validatePaymasterUserOp` function",
+  "issueId": 504,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/504"
+}
