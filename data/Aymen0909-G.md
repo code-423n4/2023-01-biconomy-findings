@@ -4,7 +4,7 @@
 
 |               | Issue         | Instances     |
 | :-------------: |:-------------|:-------------:|
-| 1   | Use `unchecked` blocks to save gas  | 6 |
+| 1   | Use `unchecked` blocks to save gas  | 2 |
 | 2   | Redundant check in `init` function should be removed | 1 |
 | 3   | `x += y/x -= y` costs more gas than `x = x + y/x = x - y` for state variables  | 3 |
 | 4   | `require()` strings longer than 32 bytes cost extra gas  |  16 |
@@ -19,54 +19,7 @@
 
 Solidity version 0.8+ comes with implicit overflow and underflow checks on unsigned integers. When an overflow or an underflow isn’t possible (as an example, when a comparison is made before the arithmetic operation), some gas can be saved by using an unchecked block.
 
-There are 6 instances of this issue:
-
-File: EntryPoint.sol [Line 336](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L336)
-```
-senderInfo.deposit = uint112(deposit - requiredPrefund);
-```
-
-The above operation cannot underflow due to the check :
-
-[if (requiredPrefund > deposit)](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L333) 
-
-It should be marked as `unchecked`.
-
-
-File: EntryPoint.sol [Line 354](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L354)
-```
-uint256 gas = verificationGasLimit - gasUsedByValidateAccountPrepayment;
-```
-
-The above operation cannot underflow due to the check :
-
-[require(verificationGasLimit > gasUsedByValidateAccountPrepayment, "AA41 too little verificationGas");](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L353) 
-
-It should be marked as `unchecked`.
-
-
-File: EntryPoint.sol [Line 362](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L362)
-```
-paymasterInfo.deposit = uint112(deposit - requiredPreFund);
-```
-
-The above operation cannot underflow due to the check :
-
-[if (deposit < requiredPreFund)](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L359) 
-
-It should be marked as `unchecked`. 
-
-
-File: EntryPoint.sol [Line 473](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L473)
-```
-uint256 refund = opInfo.prefund - actualGasCost;
-```
-
-The above operation cannot underflow due to the check :
-
-[if (opInfo.prefund < actualGasCost)](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/EntryPoint.sol#L470) 
-
-It should be marked as `unchecked`. 
+There are 2 instances of this issue :
 
 File: StakeManager.sol [Line 118](https://github.com/code-423n4/2023-01-biconomy/blob/main/scw-contracts/contracts/smart-contract-wallet/aa-4337/core/StakeManager.sol#L118)
 ```
