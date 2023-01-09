@@ -1,0 +1,8 @@
+{
+  "contest": 200,
+  "handle": "Matin",
+  "risk": "2",
+  "title": "```execTransactionFromModule()``` reverts for ```msg.value```> 0",
+  "issueId": 468,
+  "issueUrl": "https://github.com/code-423n4/2023-01-biconomy-findings/issues/468"
+}
