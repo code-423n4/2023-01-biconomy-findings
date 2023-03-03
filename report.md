@@ -236,13 +236,13 @@ Let’s a smart wallet user signs a transaction. Some of the relayers trying to 
 
 So, the original transaction has such calldata:
 
-```sol=
+```
 abi.encodeWithSignature(RelayerManager.execute.selector, (...))
 ```
 
 The modified (frontrun) transaction calldata:
 
-```sol=
+```
 // Basically, just add zero bytes at the end
 abi.encodeWithSignature(RelayerManager.execute.selector, (...)) || 0x00[]
 ```
